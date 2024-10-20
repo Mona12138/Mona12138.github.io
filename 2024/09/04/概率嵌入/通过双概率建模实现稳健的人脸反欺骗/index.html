@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="chinese" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>通过双概率建模实现稳健的人脸反欺骗 | Mona</title><meta name="author" content="Mona"><meta name="copyright" content="Mona"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="出处：arxiv2022 Summery· 写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段 研究目标· 人脸反欺骗（FAS），也就是防止在人脸验证时的欺骗攻击 贡献： 我们首次全面研究了 FAS 数据集中的噪声问题。提出了称为双概率建模（DPM）的统一框架。 DPM由DPM-LQ和DPM-DQ组成，从标签和数据角度减轻噪声的负面影响。 我们进一步设计通用 DPM 来处理现实世界的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过双概率建模实现稳健的人脸反欺骗">
+<meta property="og:url" content="http://example.com/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/index.html">
+<meta property="og:site_name" content="Mona">
+<meta property="og:description" content="出处：arxiv2022 Summery· 写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段 研究目标· 人脸反欺骗（FAS），也就是防止在人脸验证时的欺骗攻击 贡献： 我们首次全面研究了 FAS 数据集中的噪声问题。提出了称为双概率建模（DPM）的统一框架。 DPM由DPM-LQ和DPM-DQ组成，从标签和数据角度减轻噪声的负面影响。 我们进一步设计通用 DPM 来处理现实世界的">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-09-04T08:17:43.784Z">
+<meta property="article:modified_time" content="2024-10-18T13:00:51.962Z">
+<meta property="article:author" content="Mona">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '通过双概率建模实现稳健的人脸反欺骗',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-18 21:00:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Mona"><span class="site-name">Mona</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">通过双概率建模实现稳健的人脸反欺骗</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-09-04T08:17:43.784Z" title="Created 2024-09-04 16:17:43">2024-09-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-10-18T13:00:51.962Z" title="Updated 2024-10-18 21:00:51">2024-10-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="通过双概率建模实现稳健的人脸反欺骗"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>出处：arxiv2022</p>
+<h2 id="Summery">Summery<a class="anchor" href="#Summery">·</a></h2>
+<p>写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段</p>
+<h2 id="研究目标">研究目标<a class="anchor" href="#研究目标">·</a></h2>
+<p>人脸反欺骗（FAS），也就是防止在人脸验证时的欺骗攻击</p>
+<p>贡献：</p>
+<p>我们首次全面研究了 FAS 数据集中的噪声问题。提出了称为双概率建模（DPM）的统一框架。
+DPM由DPM-LQ和DPM-DQ组成，从标签和数据角度减轻噪声的负面影响。</p>
+<p>我们进一步设计通用 DPM 来处理现实世界的 FAS 数据集，而无需语义注释。它成功地处理了大规模样本中的噪声标签和退化数据。</p>
+<p>大量实验表明，DPM 无需花哨的功能，就可以在多个标准 FAS 基准测试中取得最先进的结果。</p>
+<h2 id="问题陈述">问题陈述<a class="anchor" href="#问题陈述">·</a></h2>
+<p>由于其数据驱动的性质，现有的 FAS 方法对数据集中的噪声很敏感，这将阻碍学习过程。然而，很少有工作在 FAS 中考虑噪声建模。</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img.png" alt="img.png"></p>
+<p>人脸反欺骗数据集中广泛存在三种噪声：标签模糊、标签噪声和数据噪声。标签模糊是指很难为某些输入数据分配特定的语义标签。我们将标签噪声称为错误注释的数据。数据噪声是指质量极低的图像，例如严重模糊的脸部。</p>
+<h2 id="方法">方法<a class="anchor" href="#方法">·</a></h2>
+<p>在这项工作中，我们试图通过以概率的方式从标签和数据的角度自动解决噪声问题来填补这一空白。具体来说，我们提出了一个称为双概率建模（DPM）的统一框架，具有两个专用模块：DPM-LQ（标签质量感知学习）和DPM-DQ（数据质量感知学习）。</p>
+<p>这两个模块都是基于数据和标签应形成相干概率分布的假设而设计的。
+DPMLQ 能够生成稳健的特征表示，而不会过度拟合噪声语义标签的分布。
+DPMDQ 可以根据噪声数据的质量分布来校正其预测置信度，从而消除推理过程中“错误拒绝”（False Reject）和“错误接受(False Accept)”带来的数据噪声。这两个模块都可以无缝、高效地融入现有的深度网络。此外，我们提出了广义的 DPM 来解决实际使用中的噪声问题，而无需语义注释。</p>
+<ul>
+<li>可以在单一概率模型下同时解决标签噪声和标签模糊问题，这对于FAS任务尤其有效。</li>
+<li>每张图像的数据质量建模可以在训练过程中隐式结合，无需额外的模型，这当然可以使DPM既稳定又高效。</li>
+<li>第三，DPM可以在已经经过QAM清理的测试集上进一步提高模型性能，这表明QAM和DPM的功能并不完全重叠。</li>
+</ul>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_1.png" alt="img_1.png"></p>
+<p>（PC、平板电脑或手机），很难用嵌入去映射是否为欺骗型标签分布，由于低质量数据具有较大的(σD)2，因此可以使用(σD)2来校正低质量数据的预测置信度。</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_3.png" alt="img_3.png"></p>
+<h3 id="DPM-LQ">DPM-LQ<a class="anchor" href="#DPM-LQ">·</a></h3>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_2.png" alt="img_2.png"></p>
+<p>其中 N 为训练数据的个数，ωS ∈ RA×B 为 gS (·) 的参数，
+A 为语义信息的类别数，B 为 ωS 各行向量的维数，ωsi 为一行ωS 的向量，取决于语义标签 si。</p>
+<h4 id="不确定性建模">不确定性建模<a class="anchor" href="#不确定性建模">·</a></h4>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_4.png" alt="img_4.png"></p>
+<p>μi = hθ1 (xi), σ_L_i = h_{θ2} (μi)</p>
+<h4 id="语义信息分类损失">语义信息分类损失<a class="anchor" href="#语义信息分类损失">·</a></h4>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_5.png" alt="img_5.png"></p>
+<p>然而，由于采样操作的性质不是差分的，因此将防止模型训练期间梯度流的反向传播。因此，对于来自高斯分布的随机样本 zi ，我们采用重新参数化技巧 [24] 从分布中“采样”zi 。形式上，对于 μi，我们从正态分布中采样独立的随机噪声 ε 并将概率语义特征表示形式化如下</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_6.png" alt="img_6.png"></p>
+<p>因此，我们将 zi 的随机部分转换为随机噪声 ε ，并使 μi 和 σL i 可训练。具体来说，如果给定的训练样本标签不准确，DPM-LQ 不会强制 ωsi 的分布拟合 μi 的分布，而是计算较大的方差来“放弃”该样本，从而减少其对 ωsi 分布的影响。换句话说，这个额外的维度允许模型更多地关注具有干净标签的数据，而不是具有不准确标签的样本，从而实现更好的类可分离性和更好的泛化。</p>
+<h3 id="DPM-DQ">DPM-DQ<a class="anchor" href="#DPM-DQ">·</a></h3>
+<h4 id="特征分布于建模">特征分布于建模<a class="anchor" href="#特征分布于建模">·</a></h4>
+<p>为了校正噪声数据的预测置信度，DPM-DQ 在潜在空间中制定了两个高斯分布。给定输入图像 xi 及其 Live/Spoof 地面实况 ci，ωci 可以视为其标准特征表示，即高斯分布的均值，如下所示：</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_7.png" alt="img_7.png"></p>
+<p>其中 μi 可以被视为该分布中的样本或观察到的特征表示。</p>
+<h4 id="真实-虚假类别分类损失">真实/虚假类别分类损失<a class="anchor" href="#真实-虚假类别分类损失">·</a></h4>
+<p>高斯分布是通过最大化以下对数似然来制定的:</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_8.png" alt="img_8.png"></p>
+<p>其中 (σD i )2 = hθ3 (xi)，θ3 表示模型参数 w.r.t (σD i )2。与等式不同。也就是以下损失函数最小化</p>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_9.png" alt="img_9.png"></p>
+<p>我们利用 exp (− (ω−μ)2/ 2(σD)2 ) 来替换 softmax 中的 exp (ωμ)。(正则化操作)</p>
+<p>(σD)2 可用于校正其预测置信度。</p>
+<h4 id="为什么噪声数据的方差较大">为什么噪声数据的方差较大<a class="anchor" href="#为什么噪声数据的方差较大">·</a></h4>
+<p>方差是根据特征表示的差异进行估计的。较大的差异会导致较大的方差，而对于潜在空间中相似的样本（即使是难处理的样本），方差也不会显著增大。</p>
+<h2 id="Evaluation">Evaluation<a class="anchor" href="#Evaluation">·</a></h2>
+<p><img src="/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/img_10.png" alt="img_10.png"></p>
+<p>（a)当标签噪声的比例稍微变大（小于50%）时，DPM-LQ仍然可以提高分类性能。然而，随着标签噪声变得极其严重，DPM-LQ 几乎无法工作。
+(b) 当数据噪声比例较低时，DPM-DQ 可以略微提高模型性能。此外，当数据噪声比例处于中等水平（20%、30%）时，DPM-DQ可以明显提高DPM的性能。然而，当数据噪声变得极其严重时，DPM-DQ几乎不起作用。
+© 仅在已清理了前 5% 的相对低质量数据的测试集上进行测试，没有 DPM 的模型可以达到与在整个测试集上测试的带有 DPM 的模型相当的性能。此外，DPM还可以进一步提高“更干净”的测试数据的性能。</p>
+<h2 id="Concusion">Concusion<a class="anchor" href="#Concusion">·</a></h2>
+<p>作者如何评估自己的方法，有没有问题或者可以借鉴的地方。</p>
+<h2 id="Notes">Notes<a class="anchor" href="#Notes">·</a></h2>
+<p>隐式结合：隐式结合（Implicit Incorporation）是指在模型训练过程中，某些因素或信息无需通过显式的独立模型或显式设计的特征，而是通过已有的模型结构、训练过程或参数优化方法自然地整合进来。这种方式可以让模型自动从数据中捕捉、学习和应用这些信息，而不需要明确地将其分离处理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Mona</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/">http://example.com/2024/09/04/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/%E9%80%9A%E8%BF%87%E5%8F%8C%E6%A6%82%E7%8E%87%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E7%A8%B3%E5%81%A5%E7%9A%84%E4%BA%BA%E8%84%B8%E5%8F%8D%E6%AC%BA%E9%AA%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/12/tools/webstorm%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/webstrom%E6%89%8B%E5%86%8C/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2024/08/25/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/PUM/" title="Probabilistic Modeling of Semantic Ambiguity for Scene Graph Generation"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Probabilistic Modeling of Semantic Ambiguity for Scene Graph Generation</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mona</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Summery"><span class="toc-number">1.</span> <span class="toc-text">Summery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">研究目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E9%99%88%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text">问题陈述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DPM-LQ"><span class="toc-number">4.1.</span> <span class="toc-text">DPM-LQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.1.1.</span> <span class="toc-text">不确定性建模</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E4%BF%A1%E6%81%AF%E5%88%86%E7%B1%BB%E6%8D%9F%E5%A4%B1"><span class="toc-number">4.1.2.</span> <span class="toc-text">语义信息分类损失</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DPM-DQ"><span class="toc-number">4.2.</span> <span class="toc-text">DPM-DQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%88%86%E5%B8%83%E4%BA%8E%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.2.1.</span> <span class="toc-text">特征分布于建模</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%9F%E5%AE%9E-%E8%99%9A%E5%81%87%E7%B1%BB%E5%88%AB%E5%88%86%E7%B1%BB%E6%8D%9F%E5%A4%B1"><span class="toc-number">4.2.2.</span> <span class="toc-text">真实&#x2F;虚假类别分类损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%99%AA%E5%A3%B0%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E5%B7%AE%E8%BE%83%E5%A4%A7"><span class="toc-number">4.2.3.</span> <span class="toc-text">为什么噪声数据的方差较大</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation"><span class="toc-number">5.</span> <span class="toc-text">Evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concusion"><span class="toc-number">6.</span> <span class="toc-text">Concusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes"><span class="toc-number">7.</span> <span class="toc-text">Notes</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/20/test/" title="test">test</a><time datetime="2024-10-20T02:51:52.000Z" title="Created 2024-10-20 10:51:52">2024-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/14/re-id/%E4%BD%BF%E7%94%A8%E4%BA%8C%E9%98%B6transformer%E8%BF%9B%E8%A1%8C%E7%BE%A4%E4%BD%93%E9%87%8D%E6%96%B0%E8%AF%86%E5%88%AB%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%BB%BA%E6%A8%A1/" title="Uncertainty modeling with second-order transformer for group re-identification">Uncertainty modeling with second-order transformer for group re-identification</a><time datetime="2024-10-14T08:39:06.585Z" title="Created 2024-10-14 16:39:06">2024-10-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/re-id/VI-ReID/PartMix/" title="PartMix：学习可见红外人员重新识别零件发现的正则化策略">PartMix：学习可见红外人员重新识别零件发现的正则化策略</a><time datetime="2024-09-15T07:40:31.987Z" title="Created 2024-09-15 15:40:31">2024-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/13/re-id/VI-ReID/MMM/" title="MMM">MMM</a><time datetime="2024-09-13T08:35:09.519Z" title="Created 2024-09-13 16:35:09">2024-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/12/tools/webstorm%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/webstrom%E6%89%8B%E5%86%8C/" title="Untitled">Untitled</a><time datetime="2024-09-12T02:23:15.387Z" title="Created 2024-09-12 10:23:15">2024-09-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Mona</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
