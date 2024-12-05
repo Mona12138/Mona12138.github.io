@@ -1,0 +1,490 @@
+<!DOCTYPE html><html lang="chinese" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification | Mona</title><meta name="author" content="Mona"><meta name="copyright" content="Mona"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><!-- add chat model--><!--meta(name="keywords" content=page.keywords || auto_keyword_desc(page.content).keywords || config.keywords)--><!--meta(name="description" content=page.description || auto_keyword_desc(page.content).description || config.description)--><meta name="description" content="出处: ACMM2024  笔记 我们的目标是探索更可靠的伪标签，并为 USVI-ReID 任务建立更可靠的跨模态对应。 - 首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签。根据最近邻选10个可靠样本算出稳健的prototype，矫正ID - 随后，我们提出了邻居关系学习模块来模拟不同样本之间的潜在交互。加权三元损失，继重新划分ID后，在潜在空间中同模态进行损失惩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification">
+<meta property="og:url" content="http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/index.html">
+<meta property="og:site_name" content="Mona">
+<meta property="og:description" content="出处: ACMM2024  笔记 我们的目标是探索更可靠的伪标签，并为 USVI-ReID 任务建立更可靠的跨模态对应。 - 首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签。根据最近邻选10个可靠样本算出稳健的prototype，矫正ID - 随后，我们提出了邻居关系学习模块来模拟不同样本之间的潜在交互。加权三元损失，继重新划分ID后，在潜在空间中同模态进行损失惩">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png">
+<meta property="article:published_time" content="2024-11-24T11:52:51.000Z">
+<meta property="article:modified_time" content="2024-11-26T11:13:04.677Z">
+<meta property="article:author" content="Mona">
+<meta property="article:tag" content="Unsupervised">
+<meta property="article:tag" content="VI-ReID">
+<meta property="article:tag" content="Noisy Labels">
+<meta property="article:tag" content="Neighbor Relation Learning">
+<meta property="article:tag" content="Optimal Transport">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-26 19:13:04'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><!--chatai--><meta name="description" content="            &lt;meta name=&quot;description&quot; content=&quot;我们的目标是探索更可靠的伪标签，并为 USVI-ReID;首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签;根据最近邻选10个可靠样本算出稳健的prooype，矫正ID&quot;&gt;
+            &lt;meta name=&quot;keywords&quot; content=&quot;标签,我们,方法,模态,样本,跨模态,噪声,模块,ReID,可靠的&quot;&gt;        "><meta name="keywords" content="            &lt;meta name=&quot;description&quot; content=&quot;我们的目标是探索更可靠的伪标签，并为 USVI-ReID;首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签;根据最近邻选10个可靠样本算出稳健的prooype，矫正ID&quot;&gt;
+            &lt;meta name=&quot;keywords&quot; content=&quot;标签,我们,方法,模态,样本,跨模态,噪声,模块,ReID,可靠的&quot;&gt;        "><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/nav.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Mona"><img class="site-icon" src="/nav.png"/><span class="site-name">Mona</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-24T11:52:51.000Z" title="Created 2024-11-24 19:52:51">2024-11-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-26T11:13:04.677Z" title="Updated 2024-11-26 19:13:04">2024-11-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Re-ID-VI-ReID/">Re-ID - VI-ReID</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>出处: ACMM2024</p>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/21101740572900.png"></p>
+<h2 id="笔记">笔记</h2>
+<p>我们的目标是探索更可靠的伪标签，并为 USVI-ReID
+任务建立更可靠的跨模态对应。 -
+首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签。根据最近邻选10个可靠样本算出稳健的prototype，矫正ID
+-
+随后，我们提出了邻居关系学习模块来模拟不同样本之间的潜在交互。加权三元损失，继重新划分ID后，在潜在空间中同模态进行损失惩罚
+-
+此外，我们引入了最佳传输原型匹配模块，以在集群级别建立可靠的跨模态对应。给定成本C（两张图片在潜在空间的距离（余弦相似度））用最优传输进行匹配
+-
+最后，我们提出了记忆混合学习模块来挖掘特定于模态和模态不变的信息，同时减轻显着的跨模态差异。
+- 创建一个混合模态存储器，混合上面同id的prototype。 -
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>M</mi><mi>S</mi></mrow></msub></mrow><annotation encoding="application/x-tex">L_{MS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">MS</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>利用clusterNCE损失，拉近同id跨模态的距离 -
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>M</mi><mi>I</mi></mrow></msub></mrow><annotation encoding="application/x-tex">L_{MI}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>根据epoch奇偶，偶为可见光信息，奇为红外光信息 -
+两个流行基准的综合实验结果证明了所提出方法的有效性。 ## 摘要
+无监督可见光-红外行人重新识别（USVI-ReID）提出了一项艰巨的挑战，其目的是在不带任何注释的情况下匹配可见光和红外模式的行人图像。
+最近，聚类伪标签方法已成为 USVI-ReID
+中的主流，尽管伪标签中固有的噪声构成了重大障碍。
+大多数现有工作主要侧重于保护模型免受噪声的有害影响，而忽略了校准通常与硬样本相关的噪声伪标签，这将损害模型的稳健性。
+为了解决这个问题，我们为 USVI-ReID
+设计了一个具有<strong>邻居关系的鲁棒伪标签学习（RPNR）框架</strong>。
+具体来说，我们首先引入一个简单而有效的<strong>噪声伪标签校准模块</strong>来纠正噪声伪标签。
+由于类内差异较大，噪声伪标签很难完全校准。因此，我们引入了<strong>邻居关系学习模块</strong>，通过对所有样本之间的潜在交互进行建模来减少类内的高变化。
+随后，我们设计了最佳传输原型匹配模块来建立可靠的跨模态对应。在此基础上，我们设计了一个记忆混合学习模块来共同学习模态特定和模态不变的信息。
+在两个广泛认可的基准 SYSU-MM01 和 RegDB 上进行的综合实验表明，RPNR
+的性能优于当前最先进的 GUR，平均 Rank-1 提高了
+10.3%。源代码将很快发布。</p>
+<h2 id="引言">引言</h2>
+<p>随着智能安防需求的不断增加，用于24小时监控的智能监控传感器设备变得越来越普遍[25,34,36,44,49,55]。
+由于传感器设备在白天和夜间的成像原理不同，数据呈现出多模态特征，引发了人们对可见红外行人重识别（VIReID）研究的兴趣。
+VI-ReID
+旨在当从另一种模态给出查询行人图像时准确搜索特殊的可见光/红外行人图像，但是两种模态之间的显着差距对该任务提出了相当大的挑战。
+现有的 VI-ReID 方法 [10,11,16,38,45,52,54]
+通过深度学习减轻跨模态差异，实现显着的性能改进。
+然而，这些方法依赖于注释良好的跨模态数据，这在实际场景中既耗时又费力。
+因此，无监督可见红外人员重新识别（USVI-ReID）越来越受到关注。</p>
+<p>USVI-ReID 的主要挑战是获得强大的伪标签并建立可靠的跨模态对应。
+现有的USVI-ReID方法[4,23,40,42]大多遵循DCL[43]框架，该框架使用DBSCAN生成伪标签，并基于伪标签建立跨模态对应关系。
+由于伪标签是通过聚类生成的，因此它们不可避免地包含噪声。嘈杂的伪标签可能会导致模型错误地学习数据分布和特征表示。
+为了减轻噪声伪标签的影响，DPIS
+[26]通过分析伪标签的分类器损失来计算伪标签的置信度分数，然后使用置信度分数来减轻噪声伪标签的影响。
+PGM
+[40]通过交替使用两个单向度量损失来减少噪声标签的影响，防止噪声伪标签的快速形成。
+然而，这些方法不会将嘈杂的伪标签校准为清晰的伪标签，这使得模型很难利用难以区分的特征。
+为了建立跨模态对应关系，OTLA [31]
+利用无监督域适应来生成红外图像的伪标签。
+借助丰富注释的可见图像，它提出了一种最佳传输策略，将伪标签从可见模态分配到红外模态。
+然而，OTLA
+采用为每个红外图像独立分配伪标签的策略，这是一项艰巨的任务，有很多干扰因素，导致跨模态对应不可靠。</p>
+<p>在本文中，我们提出了具有邻居关系的鲁棒伪标签学习（RPNR）框架，这是一种旨在解决
+USVI-ReID 的噪声伪标签和跨模态对应问题的统一方法。
+具体来说，为了校准噪声伪标签，我们设计了两个关键模块 :
+<strong>噪声伪标签校准（NPC）和邻居关系学习（NRL）</strong>。
+与之前仅减少噪声伪标签影响的方法不同，NPC 直接对它们进行校准。 NPC
+通过可靠的邻居样本获得稳健的原型，并根据与这些原型的相似性来校准伪标签。
+显着的类内变化将阻碍噪声伪标签校准。 NRL
+旨在通过所有图像之间的交互来减少类内差异。 NRL
+促进模型与邻近样本紧密聚类，因为邻近样本通常是相关的。
+为了建立可靠的跨模态对应，我们还设计了两个关键模块：<strong>最优传输原型匹配（OTPM）和内存混合学习（MHL）</strong>。
+与 OTLA 不同，OTLA
+忽略类内信息并将所有图像视为单独的实例来建立跨模态对应关系，OTPM
+利用类内信息来构建跨模态对应关系。
+简而言之，OTPM通过聚类获得原型，并基于这些原型而不是所有实例建立跨模态对应关系。此外，显着的跨模态差距将阻碍跨模态对应的建立。
+MHL
+旨在通过混合两种特定于模态的记忆来学习特定于模态的信息和模态不变的信息，从而有效地弥合不同模态之间的实质性差距。</p>
+<p>总之，我们的方法的主要贡献可以总结如下： -
+我们提出了具有邻居关系的鲁棒伪标签学习（RPNR）框架来解决 USVI-ReID
+中的噪声伪标签和噪声跨模态对应问题。 -
+引入两个关键模块：<strong>噪声伪标签校准（NPC）和邻居关系学习（NRL）</strong>以获得鲁棒的伪标签。
+-
+引入了两个关键模块：<strong>最佳传输原型匹配（OTPM）和内存混合学习（MHL）</strong>来建立可靠的跨模态对应。
+- 在 SYSU-MM01 和 RegDB 数据集上的实验证明了我们的方法与现有 USVI-ReID
+方法相比的优越性，并且 RPNR 比其他方法生成更高质量的伪标签。</p>
+<h2 id="相关工作">相关工作</h2>
+<h3 id="无监督单模态行人再识别">无监督单模态行人再识别</h3>
+<p>无监督单模态行人 ReID 旨在从未标记的行人 ReID
+数据集中学习有区别的身份特征。
+现有的主流纯无监督方法主要依赖于伪标签，这涉及伪标签生成和表示学习之间交替的迭代过程[6,8,12,32,33,51,53,57,62]。
+Cluster-Contrst
+[8]提出了一个集群对比框架，它存储独特的质心表示并在集群级别执行对比学习。
+此外，引入动量更新策略来增强嵌入空间中簇级特征的一致性。</p>
+<p>然而，集群的单质心（以中心点为anchor）可能会引入偏差。为了解决这个问题，人们提出了多质心方法[39,
+61]来弥补单代理方法的缺点。
+伪标签本质上包含一部分噪声。为了解决这个问题，提出了标签细化方法[5,6,56]来收集更可靠的伪标签。
+虽然上述方法在无监督 ReID
+任务中显示出有希望的结果，但由于存在巨大的跨模态差距，将它们直接应用于无监督
+VI-ReID 场景会带来重大挑战。</p>
+<h3 id="无监督可见光-红外行人再识别">无监督可见光-红外行人再识别</h3>
+<p>人们对无监督可见红外人员重新识别（USVI-ReID）的兴趣日益浓厚，因为它具有学习特定模态和模态不变信息而无需跨模态注释的潜力。
+现有主流的USVIReID方法[4,15,23,24,40,42]主要遵循DCL[43]学习框架，其中涉及两个关键步骤：
+（1）使用聚类算法生成伪标签，（2）基于这些伪标签建立跨模态对应。 PGM
+[40]和MBCCM [15]通过构建二分图来执行多阶段图匹配。 OTLA [31] 和 DOTLA
+[4] 采用最佳传输策略在实例级别将伪标签从一种模态分配到另一种模态。
+然而，伪标签不可避免地包含噪声，这可能会导致在噪声伪标签的监督下不可靠的跨模态对应。
+因此，需要为USVI-ReID任务寻找更可靠的伪标签。</p>
+<h3 id="噪声标签学习">噪声标签学习</h3>
+<p>标签噪声的存在已被证明会对深度神经网络的训练产生不利影响 [29,46,63]。
+现有的用于处理噪声标签的方法主要可以分为以下两类：标签校正和样本选择。
+标签校正方法[2,27,30,59]努力利用模型预测来校正噪声标签。
+[14]提出了一种迭代学习框架SMP来重新标记噪声样本并在真实噪声数据集上训练网络，而无需使用额外的干净监督。
+[50]除了更新网络参数之外，还利用反向传播来概率性地更新和纠正图像标签。
+与标签校正方法不同，样本选择方法[13,19,35]旨在在训练阶段选择干净的样本，同时丢弃噪声样本。
+NCE[18]根据邻居信息过滤干净样本。 CBS
+[20]建议采用基于置信度的样本增强来增强所选干净样本的可靠性。
+对于USVI-ReID任务，聚类算法生成的伪标签不可避免地包含噪声。
+因此，校准这些噪声伪标签对于提高 USVI-ReID 的性能至关重要。</p>
+<h2 id="方法">方法</h2>
+<h3 id="公式定义">公式定义</h3>
+<p>给定未标记的可见红外人员重新识别数据集<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/23833277791600.png">表示具有 Nv 个样本的未标记可见数据集，并且
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>D</mi><mi>R</mi></msup><mo>=</mo><mo stretchy="false">{</mo><msubsup><mi>x</mi><mi>i</mi><mi>r</mi></msubsup><mi mathvariant="normal">∣</mi><mi>i</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msup><mi>N</mi><mi>r</mi></msup><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">D^R=\{x^r_i|i=1,2,...,N^r\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.00773em;">R</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0087em;vertical-align:-0.2587em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>表示 N r 的未标记红外数据集样本 对于 USVI-ReID
+任务，目标是训练一个稳健的模型 fθ，将 D 中的样本
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">x^t_i </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0522em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>投影到嵌入空间 F 中，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo stretchy="false">{</mo><mi>v</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">t =\{v, r\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">}</span></span></span></span>
+因此，我们可以使用编码器 fθ 来提取可见特征 <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/25115719007200.png"> 和红外特征 <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/25149567109900.png"></p>
+<h3 id="概况-overview">概况-overview</h3>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png"></p>
+<p>该方法的总体框架如图1所示。我们首先采用DBSCAN[9]算法对可见光和红外特征进行聚类。
+聚类后，我们可以得到伪标签<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/25810403588800.png">来自模态 t
+的第 i 个图像，其中 Y t 是簇的数量，t = {v, r }。
+由于伪标签不可避免地包含噪声，因此我们首先提出了一个噪声伪标签校准（NPC）模块来校准噪声标签以获得更鲁棒的伪标签。
+之后，我们分配这些校准的伪标签<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">\hat{y}^t_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0522em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>
+为每个样本获得“标记”数据集<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/25903102268500.png"> 以及<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/25931276800100.png"> 然而，NPC
+忽略了所有样本之间可能存在的相互作用。
+为了弥补这一缺陷，我们提出了<strong>邻居关系学习（NRL）模块</strong>，该模块旨在对跨越所有样本的复杂交互进行<strong>建模</strong>。
+此外，由可见光和红外样本的两个单独聚类生成的伪标签显示出未对准。
+为了对齐可见光和红外样本之间的<strong>对应关系</strong>，我们设计了一个<strong>最佳传输原型匹配（OTPM）</strong>
+模块，
+该模块将跨模态对应视为通过最佳传输在可见光和红外原型之间进行对齐。
+学习模态不变特征在跨模态对应中至关重要。
+为了更好地挖掘模态不变信息并缓解显着的跨模态差距，我们提出了一种
+<strong>记忆混合学习（MHL）</strong> 模块，
+它将<strong>对齐</strong>的可见光和红外原型混合作为用于对比学习的新模态混合原型。</p>
+<h3 id="噪声伪标签校准">噪声伪标签校准</h3>
+<p>由于伪标注是通过聚类产生的，不可避免地含有噪声。我们引入了噪声标注标准(NPC)模块来校正含噪的伪标注。
+具体地，给定来自模态t的第c个簇，对应一个d维特征集合{ f t c，i } nc i =
+1，其中nc表示属于第c个簇的特征个数，t∈{ v，r } .
+我们使用Jaccard相似度对类内样本的相似度矩阵S进行如下建模： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/2736101532200.png"></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">S^t_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span> 是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>j</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>相似度，
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">R(f^t_{c,i},k) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>的κ互近邻集合。 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">S^t_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>越大，
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>j</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>之间的相似度越高。
+对于特定的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>，如果它周围有更多相似的样本，则该样本更可能是可靠的。
+为了为集群选择可靠的样本，我们为每个样本设计一个相似度计数器
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>G</mi><mi>c</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">G^t_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0406em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/4514396824300.png">
+其中sign(·)是符号函数，ρ是固定为0.5的阈值。我们可以发现，正确分类的样本应该具有较高的相似度计数，
+因此我们将具有前K个相似度计数的样本视为可靠样本： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/4541253687700.png"></p>
+<p>然后我们可以利用这些可靠的样本为第c个簇获得一个稳健的Prototype： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/4659214310800.png"></p>
+<p>之后，我们就可以拥有一个原型集 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>t</mi></msup><mo>=</mo><mrow><msubsup><mi>p</mi><mn>1</mn><mi>t</mi></msubsup><mo separator="true">,</mo><msubsup><mi>p</mi><mn>2</mn><mi>t</mi></msubsup><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msubsup><mi>p</mi><msup><mi>Y</mi><mi>t</mi></msup><mi>t</mi></msubsup></mrow></mrow><annotation encoding="application/x-tex">p^t = {p^t_1, p^t_2,..., p^t_{Y^t} }</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.988em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0983em;vertical-align:-0.3047em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.3953em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7253em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3047em;"><span></span></span></span></span></span></span></span></span></span></span>。 对于来自 Dt
+的给定样本 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">x^t_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0522em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>，提取的特征 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>f</mi><mi>i</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">f^t_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0522em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span> 与第 c
+个簇之间的相似度得分<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>δ</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">δ^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span> 计算如下： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/4974981864500.png"></p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>δ</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">δ^t_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1883em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span>
+<p>越大，表明样本 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">x^t_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0522em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>更有可能属于第 c
+个簇。然后，我们可以通过以下方式获得校正后的伪标签： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/5004124512500.png"></p>
+<p>然后，我们为每个样本分配这些校正后的标签以进行网络训练。</p>
+<h3 id="邻里关系学习">邻里关系学习</h3>
+<p>考虑到类内的高变异性严重阻碍了 NPC
+模块，我们提出了邻居关系学习（NRL）模块，该模块旨在通过跨越所有成对样本的复杂交互来减少类内变异性。按照[17]，我们采用宽松对比损失来学习成对样本的语义嵌入。
+为了方便起见，我们只解释可见光样本的过程。给定一对样本 (f v i ,fv j
+)，我们通过以下方式计算它们之间的欧几里得距离： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/5181384783800.png"></p>
+<p>然后，NRL模块的可见损失可以表述为： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/5627912437800.png"></p>
+<p>其中 NB 表示每次迭代中的样本数，γ 是边际超参数。
+[x]+表示max(0,x)，是铰链函数。此外，ωv i j
+是权重项，由基于欧几里得距离的高斯核函数表示： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/5753907509700.png"></p>
+<p>NRL损失包含吸引项和排斥项。正对将在吸引项的帮助下相互接近，而排斥项则鼓励负对推开超出边缘
+γ。 类似地，红外模态的 NRL 损失定义为： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/799915143800.png"></p>
+<p>总loss为 <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/5834902364200.png"></p>
+<p>ps:本质上为根据距离远近做了loss损失 ### 最佳传输原型匹配
+上述两个模块主要关注模态内信息，而忽略了模态间连接，这在 USVI-ReID
+任务中至关重要。 为此，继PGM [40]和OTLA
+[31]之后，我们提出了最佳传输原型匹配（OTPM）模块，以在集群级别建立可靠的跨模态对应。
+给定可见原型集 pv = {pv 1, pv 2,... 。 .,pv Y v } 和红外原型集 pr = {pr
+1, pr 2,... 。 。 , pr Yr }， 其中 Y v 和 Y r
+分别表示可见光团簇和红外光团簇的数量。 PGM 显示 Y v &gt; Yr
+，即簇数不一致。
+那么，跨模态对应的本质是内部模态原型的多对多匹配，最优传输可以解决 <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/6346393285100.png"></p>
+<p>其中 Q ∈ RY v ×Yr 表示跨模态匹配的传输计划。 C ∈ RY v ×Yr
+是模态间原型的成本矩阵，即 Ci j = 1/exp cos pv i , pr j ，其中 cos (·)
+表示余弦相似度。 ⟨·⟩ 表示 Frobenius 点积，1 是全一向量。
+H(Q)表示熵正则化，λ是正则化参数。
+目标函数可以通过Sinkhorn-Knopp算法[7]求解，并导出最优传输计划Q* ∈ RY v
+×Yr 。然后根据Q*得到两个匹配的伪标签集Y v→r 和Y r→v 进行网络训练： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/6417036969200.png"></p>
+<h3 id="记忆混合模型">记忆混合模型</h3>
+<p>我们通过聚类质心初始化两个特定于模态的记忆库 Mv ∈ RY v ×d 和 Mr ∈ RYr
+×d。然而，两种模态特定记忆仅存储模态特定信息，无法挖掘模态不变信息并减少跨模态差异。
+为此，利用从 OTPM
+导出的跨模态对应关系，我们提出了一种记忆混合学习（MHL）模块来联合学习模态特定信息和模态不变信息。</p>
+<p>首先，我们创建一个模态混合存储器 Mh ∈ RYr
+×d，通过混合匹配的可见光和红外原型来存储模态共享信息： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/6467471699000.png"></p>
+<p>其中 i ∈ {1,2, ... , Y r } 和 pr→v i 表示与红外原型 pr i
+匹配的可见光原型。
+α是一个平衡超参数，用于平衡可见光和红外原型的融合信息。</p>
+<p>原型 M h i ← ph
+之后，在表示学习阶段，我们遵循流行的基于记忆的方法[4,15,40,42,43]，主要交替两个阶段：
+- 在前向传播期间执行对比学习（ FP） - 在反向传播（BP）期间更新内存。
+为了更好地学习表示，我们进行多记忆联合对比学习，其中包括模态特定对比学习和模态不变对比学习。</p>
+<p>特定模态的对比学习。基于模态特定记忆 Mv 和 Mr ，ClusterNCE [8]
+损失用于通过以下方式学习模态特定信息以进行网络优化： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/47272636590100.png"></p>
+<p>其中 NB 表示每次迭代中的样本数。 yˆv i 和 yˆr j 是查询特征 f v i 和 f
+r j 的伪标签。 Mv [yˆv i ] 和 M r [yˆr j ] 分别表示查询特征 f v i 和 f r
+j 的正向表示。 此外，τ是一个温度超参数。特定模态对比学习的总损失为：
+<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/47599178366300.png"></p>
+<p>在反向传播阶段，两个特定于模态的记忆通过动量更新策略进行更新： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/47621380518200.png"></p>
+<p><strong>模态不变对比学习。</strong>
+与两个特定模态记忆不同，我们对模态共享记忆 Mh
+进行模态不变对比学习，以学习模态不变信息，同时减少跨模态差异。 遵循 PGM
+[40]，我们在 Mh 上采用替代对比学习方案： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/47687298062500.png"></p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>y</mi><mi>i</mi><mrow><mi>v</mi><mo>→</mo><mi>r</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">y^{v→r}_i </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9231em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4413em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">→</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>
+<p>表示与红外伪标签 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>y</mi><mi>i</mi><mi>r</mi></msubsup></mrow><annotation encoding="application/x-tex">y^r_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9231em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4413em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span> 匹配的可见伪标签<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>y</mi><mi>i</mi><mi>v</mi></msubsup></mrow><annotation encoding="application/x-tex">y^v_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9231em;vertical-align:-0.2587em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4413em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<p>总损失MHL模块： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/51419354729300.png"></p>
+<h3 id="优化">优化</h3>
+<p>网络的总训练损失可以表示为： <img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/51448212989600.png"></p>
+<p>其中β1、β2为平衡系数，分别设置为0.5和<strong>10.0。</strong></p>
+<h2 id="实验">实验</h2>
+<h3 id="实验设置">实验设置</h3>
+<p><strong>数据集</strong>
+该方法在两个流行的可见红外行人重识别数据集上进行了评估：SYSU-MM01 [37]
+和 RegDB [21]。 SYSU-MM01 是专为 VI-ReID
+任务量身定制的大规模公开基准测试，拥有通过四个 RGB
+摄像头和两个红外摄像头捕获的 491 个身份的多样化集合，
+涵盖室内和室外环境。在此数据集中，总共 22,258 张 RGB 图像和 11,909 张 IR
+图像，描绘了 395 个不同的身份，经过精心策划用于培训目的。
+在推理阶段，查询集包含 3,803 个 IR 图像，代表 96
+个独特身份，而图库集包含 301 个随机选择的 RGB 图像。 相比之下，RegDB
+数据集由单个 RGB 相机和单个 IR 相机捕获，具有 4,120 个 RGB 图像和 4,120
+个 IR 图像， 每个图像描绘 412 个不同的身份。
+为了进一步详细说明，数据集被分为两个不相交的集合：一个指定用于训练，另一个用于测试。</p>
+<p><strong>评估指标</strong> 评估指标。我们的方法的实验是按照DDAG
+[48]中的评估指标进行的，即累积匹配特征（CMC）和平均平均精度（mAP）。 在
+SYSUMM01
+数据集上评估我们提出的方法时，我们考虑两种不同的搜索模式：所有搜索模式和室内搜索模式。
+同样，对于 RegDB
+数据集，我们的方法通过两种测试模式进行评估：Visible2Thermal 和
+Thermal2Visible。</p>
+<p><strong>实施细节</strong>所提出的方法通过 PyTorch 在两个 TITAN RTX
+GPU 上实现。
+在训练阶段，所有输入图像的大小都调整为288×144，并采用[47]中描述的数据增强进行图像增强。
+遵循[49]，我们采用在 ImageNet 上预训练的双流特征提取器来提取输入图像的
+2048 维特征。 采用 Adam 优化器来训练网络，权重衰减为
+5e-4。初始学习率设置为 3.5e-4，每 20 个 epoch 衰减到之前值的 1/10。
+训练epoch的数量设置为100。在前50个epoch中，我们采用DCL
+[43]框架交替离线伪标签生成和在线表示学习。 所提出的框架在过去 50
+个epoch行了训练。
+此外，我们为每个集群存储多个代理，以便在构建以下内存时在每个阶段提供补充表示[39,
+61]。 方程中 κ-倒数最近邻的参数 κ。根据[60]和等式中的K，(1)被设置为30。
+(3) 固定为20。 式(12)中的超参数λ。根据[31]，被设置为25。 根据 ADCA
+[43]，动量值 μ 设置为 0.1，温度 τ 为 0.5。
+方程(8)中的边际超参数γ和方程(9)中的核带宽 σ。根据[17]均设置为 1.0。
+(14)式中方程中的权衡超参数 α设置为0.5， (23)β1和β2分别设置为 0.5 和
+10.0。</p>
+<h3 id="与最新方法对比">与最新方法对比</h3>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/68364298228800.png"></p>
+<p>为了全面说明我们方法的效率，我们将我们的方法与三种典型的相关方法进行比较：
+（1）有监督可见红外行人重识别（SVI-ReID）
+（2）半监督可见红外行人重识别（SSVI-ReID） 、
+（3）无监督可见红外人员重识别（USVI-ReID）。如果没有指定，我们在全部搜索模式下对SYSU-MM01进行分析。</p>
+<p><strong>与 SVI-ReID 方法的比较。</strong> 与依赖于高质量跨模态注释的
+SVI-ReID 方法相比，我们的 RPNR 的结果是有希望的。
+正如我们所看到的，我们的方法实现了与一些监督方法（例如 DDAG [48]、AGW
+[49] 和 CAJ [47]）相当的性能，
+这归因于我们提出的方法可以为无监督方法提供可靠的伪标签。任务。</p>
+<p><strong>与 SSVI-ReID 方法的比较。</strong> 人们提出了几种 SSVI-ReID
+方法来缓解跨模态注释的高成本问题。 这些方法利用部分注释来完成 VI-ReID
+任务。 值得注意的是，与 SOTA DPIS
+方法相比，我们的方法在没有任何跨模态注释的情况下，在 SYSU-MM01
+数据集上的 Rank-1 提高了 6.8%， mAP 提高了 4.4%。</p>
+<p><strong>与 USVI-ReID 方法的比较。</strong> 如表所示。如图 1
+所示，我们的方法明显优于现有最先进的 USVIReID 方法。 具体来说，我们的
+RPNR 在 SYSU-MM01 上的 Rank-1 达到了 65.2%，mAP 达到了 60.0%，在 Rank-1
+上超过了 SOTA GUR 4.2%， 在 mAP 上超过了 3.0%。令人惊讶的是， 在
+Visible2Thermal 模式下，RegDB 的 Rank-1 性能达到 90.9%，mAP 达到
+84.7%，大大优于 SOTA GUR， Rank-1 性能提升 17.0%，mAP 性能提升 14.5%。
+结果有力地证明了我们方法的有效性，强调我们的 RPNR
+提供了更可靠的伪标签，并为 USVI-ReID 建立了更可靠的跨模态对应。</p>
+<h3 id="消融实验">消融实验</h3>
+<p>为了验证 RPNR 中各个模块的有效性，我们在 SYSU-MM01
+上进行了消融实验。结果如表2所示。我们采用具有多个中心的DCL框架作为基线。
+<img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/68505449604300.png"></p>
+<p><strong>NPC 模块的有效性。</strong> NPC
+模块被提出来显式地纠正噪声伪标签以获得更可靠的伪标签。如表中order5
+和order6 所示。 如图2所示，与Order 5相比，带有NPC的Order
+6的性能提高了约2%。 为了更清楚地证明NPC模块的有效性，我们利用Adjusted
+Rand Index（ARI）指标来评估可见光和红外伪光的准确性。每个时期 SYSU-MM01
+上的标签。 ARI
+值越高表示伪标签越准确。如图2所示，NPC模块的引入提高了可见光和红外伪标签的准确性，从而为网络训练提供更可靠的伪标签。</p>
+<p><strong>NRL
+模块的有效性。</strong>引入NRL模块作为补充信息，弥补刚性伪标签的缺点。添加NRL模块后，SYSU-MM01的Rank-1性能可获得2%-4%的提升。
+它表明 NRL
+模块可以探索跨越所有成对样本的有意义的复杂交互，为网络提供补充的监督信息。</p>
+<p><strong>OTPM
+模块的有效性。</strong>如图3所示，我们在四个聚类评估指标上比较了OTPM与PGM的跨模态匹配精度，以显示OTPM的有效性。
+正如我们所看到的，OTPM 在所有四个指标上都显着优于
+PGM，这表明其在集群级别建立可靠的跨模态对应的卓越能力。</p>
+<p><strong>MHL 模块的有效性。</strong>我们提出了 MHL
+模块来共同学习模态特定和模态不变信息，同时减少跨模态差异。 请注意，MHL
+模块不能单独执行，因为它构建在 OTPM 模块之上。 与 Baseline 相比，MHL 与
+OTPM 的组合带来了显着的性能提升，Rank-1 准确率大幅提高了 19.8%，mAP
+提高了 16.8%(order1 和order 5)。 这凸显了 MHL
+在利用特定模态和模态不变信息方面的效率，有效地减轻了跨模态差异。</p>
+<h3 id="进一步分析">进一步分析</h3>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/69397869488400.png"></p>
+<p><strong>超参数分析。</strong>
+我们的方法中有三个关键的超参数，我们在图4中给出了不同值的定量结果来评估它们的影响。
+正如我们所看到的，当α设置为0.5，β1设置为0.5，β2 分别设置为 10.0。</p>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/69435394730000.png"></p>
+<p><strong>伪标签的准确性。</strong>
+如图5所示，我们在四个常见的聚类评估指标上将我们的方法与几种SOTA
+USVI-ReID方法进行了比较，以显示所提出的RPNR的有效性。 结果表明，RPNR
+生成的可见光和红外伪标签在所有四个聚类指标上均显着优于现有方法，这表明我们的方法为网络训练提供了更可靠的伪标签，从而提高了性能。</p>
+<p><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/69456931748999.png"></p>
+<p><strong>可视化分析。</strong> 我们使用 t-SNE
+在二维嵌入空间中可视化可见光和红外特征分布，其中包含 10
+个随机选择的身份。
+如图6所示，与Baseline相比，在我们的方法中，来自相同模态的相同身份的特征分布更加紧凑（参见橙色和紫色圆圈），并且来自不同模态的相同身份的特征分布是也更近（参见红色和蓝色圆圈）。
+这表明 RPNR
+显着降低了跨模态差异，并为可靠的跨模态对应奠定了坚实的基础。</p>
+<h2 id="结论">结论</h2>
+<p>在本文中，我们介绍了一种解决 USVI-ReID
+任务的有效方法，称为具有邻居关系的鲁棒伪标签学习（RPNR）。
+我们的目标是探索更可靠的伪标签，并为 USVI-ReID
+任务建立更可靠的跨模态对应。
+为此，我们首先使用噪声伪标签校准模块来纠正噪声伪标签，从而获得更可靠的伪标签。
+随后，我们提出了邻居关系学习模块来模拟不同样本之间的潜在交互。
+此外，我们引入了最佳传输原型匹配模块，以在集群级别建立可靠的跨模态对应。
+最后，我们提出了记忆混合学习模块来挖掘特定于模态和模态不变的信息，同时减轻显着的跨模态差异。
+两个流行基准的综合实验结果证明了所提出方法的有效性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Mona</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/">http://example.com/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unsupervised/">Unsupervised</a><a class="post-meta__tags" href="/tags/VI-ReID/">VI-ReID</a><a class="post-meta__tags" href="/tags/Noisy-Labels/">Noisy Labels</a><a class="post-meta__tags" href="/tags/Neighbor-Relation-Learning/">Neighbor Relation Learning</a><a class="post-meta__tags" href="/tags/Optimal-Transport/">Optimal Transport</a></div><div class="post_share"><div class="social-share" data-image="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"><img class="cover" src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification</div></div></a></div><div class="next-post pull-right"><a href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"><img class="cover" src="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/1919591092208600.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/09/13/re-id/VI-ReID/MMM/" title="MMM"><img class="cover" src="/2024/09/13/re-id/VI-ReID/MMM/img_3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">MMM</div></div></a></div><div><a href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"><img class="cover" src="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/240239585599100.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-28</div><div class="title">Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning</div></div></a></div><div><a href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"><img class="cover" src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-26</div><div class="title">Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification</div></div></a></div><div><a href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"><img class="cover" src="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/1919591092208600.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="title">Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification</div></div></a></div><div><a href="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/" title="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification"><img class="cover" src="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/img_2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-02</div><div class="title">Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification</div></div></a></div><div><a href="/2024/09/15/re-id/VI-ReID/PartMix/" title="PartMix：学习可见红外人员重新识别零件发现的正则化策略"><img class="cover" src="/2024/09/15/re-id/VI-ReID/PartMix/img_1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-15</div><div class="title">PartMix：学习可见红外人员重新识别零件发现的正则化策略</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/nav.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mona</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mona12138"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%8D%95%E6%A8%A1%E6%80%81%E8%A1%8C%E4%BA%BA%E5%86%8D%E8%AF%86%E5%88%AB"><span class="toc-number">3.1.</span> <span class="toc-text">无监督单模态行人再识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%8F%AF%E8%A7%81%E5%85%89-%E7%BA%A2%E5%A4%96%E8%A1%8C%E4%BA%BA%E5%86%8D%E8%AF%86%E5%88%AB"><span class="toc-number">3.2.</span> <span class="toc-text">无监督可见光-红外行人再识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E6%A0%87%E7%AD%BE%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.3.</span> <span class="toc-text">噪声标签学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">4.1.</span> <span class="toc-text">公式定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%86%B5-overview"><span class="toc-number">4.2.</span> <span class="toc-text">概况-overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E4%BC%AA%E6%A0%87%E7%AD%BE%E6%A0%A1%E5%87%86"><span class="toc-number">4.3.</span> <span class="toc-text">噪声伪标签校准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%BB%E9%87%8C%E5%85%B3%E7%B3%BB%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.4.</span> <span class="toc-text">邻里关系学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BF%86%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.5.</span> <span class="toc-text">记忆混合模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96"><span class="toc-number">4.6.</span> <span class="toc-text">优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">实验设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E6%9C%80%E6%96%B0%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="toc-number">5.2.</span> <span class="toc-text">与最新方法对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.3.</span> <span class="toc-text">消融实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E6%9E%90"><span class="toc-number">5.4.</span> <span class="toc-text">进一步分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">结论</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/" title="Robust Object Re-identification with Coupled Noisy Labels"><img src="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/435246623967300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Robust Object Re-identification with Coupled Noisy Labels"/></a><div class="content"><a class="title" href="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/" title="Robust Object Re-identification with Coupled Noisy Labels">Robust Object Re-identification with Coupled Noisy Labels</a><time datetime="2024-11-30T11:33:48.000Z" title="Created 2024-11-30 19:33:48">2024-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"><img src="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/240239585599100.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"/></a><div class="content"><a class="title" href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning">Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning</a><time datetime="2024-11-28T02:59:27.000Z" title="Created 2024-11-28 10:59:27">2024-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"><img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"/></a><div class="content"><a class="title" href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification">Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification</a><time datetime="2024-11-26T08:59:00.000Z" title="Created 2024-11-26 16:59:00">2024-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification">Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification</a><time datetime="2024-11-24T11:52:51.000Z" title="Created 2024-11-24 19:52:51">2024-11-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"><img src="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/1919591092208600.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification">Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification</a><time datetime="2024-11-21T02:47:17.000Z" title="Created 2024-11-21 10:47:17">2024-11-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Mona</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

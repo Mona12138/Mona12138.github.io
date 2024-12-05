@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="chinese" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification | Mona</title><meta name="author" content="Mona"><meta name="copyright" content="Mona"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><!-- add chat model--><!--meta(name="keywords" content=page.keywords || auto_keyword_desc(page.content).keywords || config.keywords)--><!--meta(name="description" content=page.description || auto_keyword_desc(page.content).description || config.description)--><meta name="description" content="出处：ICCV2023  摘要 最近的无监督人员重新识别方法维护一个用于对比学习的集群单代理。 然而，由于类内方差和类间相似性，聚类uni-proxy很容易出现偏差并与相似类混淆，导致学习到的特征在嵌入空间中缺乏类内紧凑性和类间分离性。 为了完整、准确地表示集群中包含的信息并学习判别特征，我们建议为集群维护差异集群代理和多实例代理。 每个集群代理专注于代表一部分信息，几个不同的代理协作完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification">
+<meta property="og:url" content="http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/index.html">
+<meta property="og:site_name" content="Mona">
+<meta property="og:description" content="出处：ICCV2023  摘要 最近的无监督人员重新识别方法维护一个用于对比学习的集群单代理。 然而，由于类内方差和类间相似性，聚类uni-proxy很容易出现偏差并与相似类混淆，导致学习到的特征在嵌入空间中缺乏类内紧凑性和类间分离性。 为了完整、准确地表示集群中包含的信息并学习判别特征，我们建议为集群维护差异集群代理和多实例代理。 每个集群代理专注于代表一部分信息，几个不同的代理协作完">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png">
+<meta property="article:published_time" content="2024-11-26T08:59:00.000Z">
+<meta property="article:modified_time" content="2024-11-28T06:53:55.608Z">
+<meta property="article:author" content="Mona">
+<meta property="article:tag" content="Unsupervised">
+<meta property="article:tag" content="Re-ID">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-28 14:53:55'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><!--chatai--><meta name="description" content="            &lt;meta name=&quot;description&quot; content=&quot;最近的无监督人员重新识别方法维护一个用于对比学习的集群单代理;然而，由于类内方差和类间相似性，聚类uni-proxy很容易出现偏差并与相似类混淆，导致学习到的特征在嵌入空间中缺乏类内紧凑性和类间分离性;为了完整准确地表示集群中包含的信息并学习判别特征，我们建议为集群维护差异集群代理和多实例代理&quot;&gt;
+            &lt;meta name=&quot;keywords&quot; content=&quot;我们,实例,样本,集群,聚类,差异,方法,对比,一个,17&quot;&gt;        "><meta name="keywords" content="            &lt;meta name=&quot;description&quot; content=&quot;最近的无监督人员重新识别方法维护一个用于对比学习的集群单代理;然而，由于类内方差和类间相似性，聚类uni-proxy很容易出现偏差并与相似类混淆，导致学习到的特征在嵌入空间中缺乏类内紧凑性和类间分离性;为了完整准确地表示集群中包含的信息并学习判别特征，我们建议为集群维护差异集群代理和多实例代理&quot;&gt;
+            &lt;meta name=&quot;keywords&quot; content=&quot;我们,实例,样本,集群,聚类,差异,方法,对比,一个,17&quot;&gt;        "><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/nav.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Mona"><img class="site-icon" src="/nav.png"/><span class="site-name">Mona</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-26T08:59:00.000Z" title="Created 2024-11-26 16:59:00">2024-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-28T06:53:55.608Z" title="Updated 2024-11-28 14:53:55">2024-11-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Re-ID/">Re-ID</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>出处：ICCV2023 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/83151247652200.png"></p>
+<h2 id="摘要">摘要</h2>
+<p>最近的无监督人员重新识别方法维护一个用于对比学习的集群单代理。
+然而，由于类内方差和类间相似性，聚类uni-proxy很容易出现偏差并与相似类混淆，导致学习到的特征在嵌入空间中缺乏类内紧凑性和类间分离性。
+为了完整、准确地表示集群中包含的信息并学习判别特征，我们建议为集群维护差异集群代理和多实例代理。
+每个集群代理专注于代表一部分信息，<strong>几个不同的代理协作完整地代表整个集群。</strong>
+作为整体表示的补充，多实例代理用于准确表示集群实例中包含的细粒度信息。
+基于所提出的差异聚类代理，我们构建了聚类对比损失，以使用代理作为硬正样本来拉近聚类实例并减少类内方差。
+同时，通过多实例代理中的全局硬负样本挖掘构建实例对比损失，以排除真正无法区分的类并减少类间相似性。
+Market-1501 和 MSMT17
+上的大量实验表明，所提出的方法优于最先进的方法。</p>
+<h2 id="引言">引言</h2>
+<p>无监督人员重新识别 (Re-ID)
+旨在跨摄像机视图和场景检索特定人员的图像，无需注释 [35, 48]。
+大多数无监督方法采用两步交替训练方案：1）通过k近邻搜索[34,42]或聚类[15,13,27,43,8]生成伪标签；
+2）基于每个簇的单代理（即簇质心[9]或可学习权重[13]）训练模型。
+然而，由于人体姿势、光照和摄像机视角的变化所引起的类内方差和类间相似性[54]，单代理/往往存在偏差和混乱，无法完整准确地描述集群的信息。
+结果，基于单代理学习到的特征不紧凑，并且在嵌入空间中聚类边界不清晰，进而影响聚类的质量。
+为了学习判别性特征，CAP
+[36]细分每个集群以获得多个相机感知代理，将实例（即样本）拉近集群中的所有代理以减轻类内方差。
+后来的工作ICE[2]和PPLR[7]采用了相同的策略。
+尽管这些方法提高了簇的紧凑性，但它们依赖于额外的标签，并且忽略了由相机视图以外的因素引起的类内方差。
+另一方面，一些工作[46,14,7]专注于减少类间相似性以学习判别性特征。他们考虑进行批量硬负样本挖掘[20]以促进类间分离。
+然而，如图 1 所示，由于抽样的随机性，
+从迷你批次中为查询选取的阴性样本可能不是全局嵌入空间中真正的硬阴性样本，
+因此，不能扩大实际无法区分的类之间的间隔。 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/90484137064100.png"></p>
+<p>为了在不依赖额外注释的情况下减少类内差异，我们建议使用多个差异聚类代理来互补地表示一个聚类。
+代理集中代表了部分信息，而整个集群则由多个差异代理完全代表。
+我们只需用不同的更新设计更新同一个簇的中心点，就能得到差异簇代理。
+在簇代理的基础上，我们提出了簇对比损失来增加簇的紧凑性。 如图 2
+所示，根据成对相似性，Proxy1 和 Proxy2 分别是查询 1
+对应的硬阳性样本和易阳性样本。 因此，对比损失能使 Proxy1 对 Query1
+产生强拉力，而 Proxy2 产生弱拉力，从而使模型优化后的 Query1 更接近
+Proxy1。 同样，查询 2 也会更接近代理 2。因此，查询 1 和查询 2
+将变得更加接近。 由于代理会通过这些更接近的查询进行更新，因此代理 1
+和代理 2 也会随着训练而接近。
+通过两个差异代理的协作，群集逐渐获得类内紧凑性。 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/90789188394300.png"></p>
+<p>另一方面，为了在减少类内差异的同时进一步有效降低类间相似性，我们提出通过聚类的实例特征来维护更精细、更准确的多实例代理，作为粗粒度聚类代理的补充。
+有别于以往的批量硬样本挖掘，我们以全局视角从所有其他类的多实例代理中选择查询的硬负样本。
+然后，我们利用真实的硬阴性样本来构建实例对比损失，并有目的地增加不可区分类别的类间方差。
+我们的贡献如下图所示： -
+我们提出了基于<strong>差异集群代理的对比学习方法</strong>，它们可以互补地代表一个集群，并共同减少类内差异。
+-
+我们提出了基于<strong>多实例代理的全局硬负样本挖掘方法</strong>，以选择真正具有信息量的硬负样本，从而有目的地增加不可区分类别的类间方差。
+- 广泛的实验结果表明，与最先进的方法相比，该方法的性能更加卓越。</p>
+<h2 id="相关工作">相关工作</h2>
+<h3 id="无监督行人重识别">无监督行人重识别</h3>
+<p>现有的无监督方法大致可分为无监督域自适应（UDA）方法和纯粹无监督学习（USL）方法。
+UDA 方法 [13, 15, 14, 31, 44, 26, 35, 11, 52, 1, 21]
+将从标记源域学到的知识转移到未标记的目标域。 相比之下，USL 方法 [28, 34,
+27, 43, 36, 41, 7, 46, 25, 45] 是直接在未标记的目标数据集上训练的。
+我们的方法符合更具挑战性的 USL
+设置。最近，通过聚类生成伪标签并对聚类代理进行对比学习的 USL
+方法取得了很大进展。 SpCL [15]
+将记忆库中一个类的实例特征平均化，作为该类的单代理。 Cluster-Contrast
+[9]
+则直接为每个簇存储一个单代理，以保持更新的一致性。然而，群组单代理无法有效减少现有的类内差异。
+因此，CAP[36]为每个集群形成多个相机感知代理，以缓解相机域差距。MCRN [39]
+为一个簇存储多个中心点表示，但只选择一个作为查询的代理，以减轻混合簇的影响。
+与这些方法不同的是，我们会获取多个不一致的簇代理来完整地表示一个簇，并作为硬阳性样本来协同增强类内紧凑性。</p>
+<h3 id="难样本挖掘">难样本挖掘</h3>
+<p>硬样本挖掘可以提高训练速度和性能 [49]。最近许多无监督 Re-ID
+方法利用硬批量样本挖掘 [20] 来提高类内紧凑度和类间分离度。 MMT [14] 和
+PPLR [7] 通过在最难的正负样本对上构建 softmax-triplet loss
+来学习硬样本。 ICE [2]
+挖掘迷你批次中最难的正样本，并将其他身份的所有样本作为负样本，以减少类内差异。
+ISE [46]
+在一批原始样本和生成样本中挖掘最难的正样本和负样本。然而，迷你批次中的硬样本挖掘并未考虑所有类别的全局信息。
+因此，我们提出了基于多实例代理的全局硬负样本挖掘，以有效提高难以区分的类之间的类间差异。</p>
+<h3 id="对比学习">对比学习</h3>
+<p>对比学习[17, 6, 5, 32, 40, 16,
+37]旨在最大限度地提高从样本的不同扭曲版本中获得的表征的相似性[16]。 MoCo
+[17]
+建立了一个队列字典来保存大量的负样本，并引入了一个动量编码器来确保它们的一致性。
+我们基于不一致的集群代理和多实例代理进行集群级和实例级对比学习。与 MoCo
+一样，我们使用动量编码器来保持负样本的一致性。</p>
+<h2 id="方法">方法</h2>
+<p><img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png"></p>
+<h3 id="概况-overview">概况-overview</h3>
+<p>给定一个未标记的人物再识别数据集 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>x</mi><mi>i</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>N</mi><mi>D</mi></msub></msubsup></mrow><annotation encoding="application/x-tex">D = \{x_i\}^{N_D}_{i=1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2003em;vertical-align:-0.2769em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9234em;"><span style="top:-2.4231em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.1451em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:-0.109em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2769em;"><span></span></span></span></span></span></span></span></span></span>，其中 xi 是第 i
+张图像，ND 是图像的数量。 对于 USL Re-ID 任务，目标是训练一个鲁棒网络
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">f_θ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，将数据空间 D 中的样本 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 投影到嵌入空间 F
+中的特征 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_θ(x_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<p>最近，大多数无监督 Re-ID 方法 [15, 9, 46, 36, 2] 通过 DBSCAN [12]
+算法生成伪标签。 经过 DBSCAN 聚类后，无标签数据集 D 变为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><msubsup><mi>N</mi><mi>D</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup></msubsup></mrow><annotation encoding="application/x-tex">D = \{x_i,y_i\}^{N&#x27;_D}_{i=1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.4013em;vertical-align:-0.2769em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1245em;"><span style="top:-2.4231em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.245em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8278em;"><span style="top:-2.214em;margin-left:-0.109em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2769em;"><span></span></span></span></span></span></span></span></span></span>，
+其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∈</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">y_i ∈ \{1, 2, ., C\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">}</span></span></span></span> 是第 i
+幅图像的伪标签。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><msub><mtext>′</mtext><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">N′_D </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord"><span class="mord">′</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是剔除异常值后的图像数，C 是聚类数。
+然后建立一个存储库 M 来存储簇的代理。
+由于聚类中心点包含平均信息，最近的方法 [9, 46]
+简单地将其作为聚类的单代理。 在代理的基础上，应用 InfoNCE 损失函数 [32]
+进行模型优化。 尽管代用指标也有不同的变体 [15, 53,
+36]，但我们将其一般表述总结如下： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135491844173099.png"></p>
+<p>其中，q 是由 fθ 提取的查询实例特征；pi 是从存储库 M 中选取的 N
+个代理中的第 i 个代理； 在 N 个代理中，p+ 与 q 有相同的伪标签；τ
+是温度系数。 由于 q 和 pi 都经过 L2 归一化处理，因此使用 q - pi
+的余弦相似度作为特征之间的相似度得分。</p>
+<p>当模型参数通过梯度下降法更新时，代理 p+ 也会通过查询 q 更新： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135532080078800.png"></p>
+<p>其中，μ 是动量因子。</p>
+<p>如图 3
+所示，本文提出了一种基于差异群组代理和多实例代理（DCMIP）的对比学习框架。
+如上所述，我们通过编码器 fθ 提取训练集的特征，并通过 DBSCAN 生成伪标签。
+所不同的是，我们同时为一个集群维护集群代理和多实例代理，并在集群和实例层面构建对比损失。</p>
+<p>由于实例代理数量庞大，我们按照 MoCo [17] 引入了动量编码器
+fθm，以保持负实例代理的一致性。动量编码器的更新过程如下： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/136421034537100.png"></p>
+<p>其中，α 是控制更新速度的动量系数，设置为 0.999。动量编码器 fθm
+的变化更加平滑，因此由 fθm 编码的实例特征更加一致。
+需要注意的是，集群代理是用编码器编码的特征来初始化和更新的，而实例代理是用
+fθm 编码的实例特征来初始化和更新的。</p>
+<h3 id="不一致的集群代理">不一致的集群代理</h3>
+<p>我们认为，聚类单代理往往只关注一类的共同信息，而无法反映存在的类内差异。
+为了解决这个问题，我们建议保留差异聚类代理（DCP）来补充代表一个聚类，并在这些差异代理的基础上改进聚类的紧凑性。</p>
+<p><strong>内存初始化。</strong> 对于第 j 个簇的所有代理，我们用簇中心点
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi mathvariant="normal">∣</mi><msub><mi>H</mi><mi>j</mi></msub><mi mathvariant="normal">∣</mi></mrow></mfrac><msub><mo>∑</mo><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>∈</mo><msub><mi>H</mi><mi>j</mi></msub></mrow></msub><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c_j =\frac{1}{|H_j|}\sum_{ x_i∈H_j}x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3874em;vertical-align:-0.5423em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∣</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0813em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span><span class="mord mtight">∣</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5423em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0813em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.497em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 对其进行初始化， 其中 Hj 表示第 j
+个簇，|-|表示其中的实例数。因此，内存库<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><msup><mi>R</mi><mrow><mi>C</mi><mo>×</mo><mi>M</mi><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">M∈R^{C×M×d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span></span></span></span></span> 有 C×M 条目，d
+是特征的维度。</p>
+<p><strong>记忆更新。</strong> 以往的研究 [22, 55]
+发现，正样本和负样本的硬度对对比学习至关重要。与查询 q 相对应的 InfoNCE
+损失梯度（公式 1）为 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/156968606953300.png"> <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/156998518400000.png"></p>
+<p>其中，P+/-∈ [0, 1] 是查询 q 与正/负代理 p+/p- 之间的匹配概率分布 Nq
+表示除正向 p+ 以外的 N - 1 个负向代理集合。
+我们可以发现，与查询相似度较低的硬阳性样本往往会产生更大的梯度，从而产生更强的拉力，使查询更接近。
+但是，只使用这样一个代理来代表一个聚类是有偏差的，可能会影响类间关系的学习。
+因此，我们建议使用多个不同的代理来代表一个群集</p>
+<p>为获得不一致的集群代理，我们会根据当前迷你批中的不同特征向量，对集群中
+M 个相同初始化的代理进行等式 2 的更新。对于第 i 个集群的第 m 个代理
+pi,m，特征向量可以通过几种方式获得： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/157182689364400.png"></p>
+<p>其中，Qi 是当前迷你批次中第 i 个群组的样本特征集；qmean
+是样本特征集的平均值；qrand 是从 Qi 中随机抽取的样本特征。 选择概率为
+<img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/157219106826400.png"> 其中，K
+表示批次中某个特征的样本数。</p>
+<p>qhard 是与代理 pi,m 相似度最低的样本特征。
+这三个不同的向量分别对应于聚类代理的三种不同更新设计，我们将其命名为
+"Mean"、"Rand "和 "Hard"。</p>
+<p>在实验中，我们发现不同更新设计所获得的最佳集群代理不仅要有差异，而且要稳定。
+代理的差异确保了正样本的硬度，即对查询产生的拉力的强度。
+稳定性确保代理的拉动方向不会发生剧烈变化，否则一个代理无法形成稳定的拉动，多个代理之间也无法形成稳定的协作。
+实验结果表明，在 Market-1501 和 MSMT17 中，采用 "Mean "+"Hard "和 "Mean
+"+"Rand "的更新设计维持两个集群代理，
+在高差异和高稳定性之间进行权衡，可以获得最佳性能。 我们将在第 4.4
+节中进一步讨论差异和稳定性。</p>
+<p><strong>集群对比损失。</strong> 有了 M
+个不一致的集群代理，我们就形成了如下的集群对比损失： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/157373490493500.png"></p>
+<p>其中 pi,j 是第 i 个群集的第 j 个代理。p+ j 与查询 q
+有相同的标签，是该群集的第 j 个代理。 请注意，所有群集的第 j
+个代理都采用了相同的更新设计。</p>
+<p>多个不一致的代理可互补地代表一个簇，并共同减少类内差异，使簇更紧凑。</p>
+<h3 id="多实例代理">多实例代理</h3>
+<p>考虑到不一致的集群代理无法反映集群硬实例中包含的有价值的细粒度信息，我们进一步为每个集群维护多实例代理（MIP），
+以执行全局硬负样本挖掘。</p>
+<p><strong>内存初始化。</strong>我们随机选择由动量编码器 fθm 编码的 K
+个实例特征，来初始化每个集群的多实例代理。 请注意，K
+等于迷你批次中为一个身份采样的图像数量。结合集群代理和实例代理，内存库
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><msup><mi>R</mi><mrow><mi>C</mi><mo>×</mo><mo stretchy="false">(</mo><mi>M</mi><mo>+</mo><mi>K</mi><mo stretchy="false">)</mo><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">M ∈ R^{C×(M+K)×d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.888em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mbin mtight">×</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span><span class="mclose mtight">)</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span></span></span></span></span>共有 C × (M + K) 条目。</p>
+<p><strong>内存更新。</strong>在更新模型参数时，当前迷你批次的实例特征用于更新实例代理，具体如下：
+<img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/157607420704800.png"></p>
+<p>其中，Qim 是由 fθm 编码的迷你批次中第 i 个集群的实例特征集，P i
+是存储库 M 中该集群的实例代理集。
+与集群代理的动量更新不同，实例代理直接由当前迷你批次中具有相同标签的 K
+个实例替换。
+这样，我们就可以保留尽可能多的最新实例代理，以代表集群的细粒度信息。</p>
+<p><strong>实例对比损失。</strong>
+我们计算输入查询与记忆库中其他类的所有实例代理的成对相似度，并按降序排列。
+我们选择前 N 个最相似的实例代理作为全局最难否定项。
+考虑到当前迷你批次中的实例特征比记忆库 M
+中的实例特征更新颖，且动量编码器 fθm 更稳定、对标签噪声的鲁棒性更好，
+我们选择 fθm
+编码的批次中与查询相似度最低的实例特征作为硬阳性。根据硬阳性和 N
+个全局硬阴性，构建出以下实例对比损失： <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/217899887186600.png">
+其中，m+ 为硬阳性，pin 为第 i 个硬阴性实例代理。
+从实例间关系的角度来看，这些难分负样本会准确地增加全局嵌入空间中无法区分的类别的类间差异。</p>
+<h3 id="总损失">总损失</h3>
+<p>我们将基于差异集群代理和多实例代理的对比学习框架命名为 DCMIP。DCMIP
+的总体损失函数为 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/218013618322500.png"></p>
+<p>其中，λ 是损失权重。对于
+LMIP，由于早期训练阶段的表征质量较差，此时的硬样本可能毫无意义。
+使用这些硬样本可能会导致模型从一开始就朝着错误的方向训练[49]。
+因此，我们设置 Eins = 20，从第 21
+个epoch开始进行实例级对比学习，并用当前 fθ 的参数初始化 fθm 的参数。
+我们还在附录 A.1 中报告了从其他 epoch 开始的结果。</p>
+<p>DCMIP 可从类内和类间关系两方面提高表征质量。
+通过在聚类对比损失（cluster contrastive
+loss）中使用聚类代理作为硬正向样本（公式 8），
+可以减少类内方差；通过在实例对比损失（instance contrastive
+loss）中使用实例代理作为硬负向样本（公式
+10），可以增加类间方差。这样，模型就可以学习辨别特征，进而提高聚类质量。</p>
+<h2 id="实验">实验</h2>
+<h3 id="数据集和评估指标">数据集和评估指标</h3>
+<p>我们在 Market-1501 [47] 和 MSMT17 [38]
+上对我们的方法进行了评估。Market-1501 由清华大学校园内的 6
+个摄像头采集，包含 1,501 个人身份的 32,668 张图像，其中训练集包含 751
+个人身份的 12,936 张图像，测试集包含 750 个人身份的 19,732
+张图像。MSMT17 是一个更具挑战性的数据集，使用 15 台相机收集数据，包含
+4,101 个身份的 126,441 张图像，其中训练集为 1,041 个身份的 32,621
+张图像，测试集为 3,060 个身份的 93,820
+张图像。我们的实验采用了累积匹配特征（CMC）Top-1、Top-5、Top-10
+准确率和平均精度（mAP）。</p>
+<h3 id="补充细节">补充细节</h3>
+<p>我们采用在 ImageNet [10] 上预先训练好的 ResNet50 [18]
+作为骨干层。按照 Cluster-Contrast [9]，最后的池化层采用广义均值池化
+[30]。输入图像大小为 320×128。在每个纪元开始时，我们使用 DBSCAN
+聚类生成伪标签。对于 Market-1501 和 MSMT17，DBSCAN
+中两个样本之间的最大距离分别设置为 0.45 和 0.7。迷你批大小为 256，包括
+16 个身份和每个身份的 16 幅图像。从第 21
+个epoch开始，我们开始实例级对比学习，每个集群维护 K = 16
+个实例代理。在实例对比损失中（公式 10），我们为每个查询选择 N = 256
+个负实例代理，并设置损失权重 λ = 0.5（公式 11）。集群代理的更新动量 μ
+设为 0.1（公式 2）。两个损失（公式 8、公式 10）中的温度超参数 τ 设为
+0.05。我们使用权重衰减为 5 ×10-4 的 Adam [23] 优化器。初始学习率设置为
+3.5 ×10-5，每 20 个历时除以 10。对于两个数据集，我们都进行了 50
+次训练。训练完成后，动量编码器 fθm 将用于推理。我们还在附录 A.1 中提供了
+DBSCAN 最大距离和损失权重 λ 的分析。</p>
+<h3 id="消融实验">消融实验</h3>
+<p>在本小节中，为了分析建议组件的有效性，我们在 Market-1501 和 MSMT17
+上进行了大量实验。 我们采用将聚类中心点作为聚类的单代理，并通过 "平均值
+"设计更新单代理的方法作为基线。 差异聚类代理（DCP）的有效性。
+请注意，对于 Market-1501 和
+MSMT17，我们保留了两个差异簇代理，并分别使用了 "Mean "+"Hard"（公式
+5，公式 7） 和 "Mean "+"Rand"（公式 5，公式 6）的更新设计。 如表 1
+所示，我们的 DCP 显著超过了使用单代理的基线，尤其是在 Market-1501
+上提高了 +4.8%/+1.5% mAP/top-1，在 MSMT17 上提高了 +3.2%/+2.7%
+mAP/top-1。
+这表明，互补和协作差异聚类代理可以更全面地描述聚类，因此比聚类单代理更有助于学习良好的样本表示。
+<img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/222559761802200.png"></p>
+<p><strong>多实例代理（MIP）的有效性。</strong>为了证明 MIP
+的有效性，我们分别将 MIP 与基线和 DCP 结合使用。 在表 1
+中，与基线相比，基线+MIP 的 mAP/top-1 在 Market-1501 上提高了
+3.5%/1.1%，在 MSMT17 上提高了 4.0%/2.2%。 DCMIP（DCP+MIP）在 Market1501
+和 MSMT17 上的 mAP/top-1 分别比基线+DCP 提高了 0.9%/0.4%和 2.5%/0.5%。
+这表明，对于集群单代理和多代理，基于 MIP
+的全局硬负挖掘都能捕捉到全局嵌入空间中真正的硬实例所包含的细粒度信息。
+在表 2 中，我们将 MIP 与两种批量硬样本挖掘技术进行了比较。
+一种是批量硬三元组挖掘技术[20]，它与迷你批次中的锚、最硬正向和最硬负向形成一个三元组。
+另一种方法是批量硬实例挖掘[2]，它使用迷你批次中最相似的同类实例和其他类的所有实例作为正片和负片。
+结果表明，基于 MIP 的全局硬负样本挖掘优于上述两种技术。 这表明，我们的
+MIP
+克服了批量硬样本挖掘的局限性，利用最难的负实例代理，有目的地增加不可区分类别的类间方差。</p>
+<p>DCMIP 结合了 DCP 和 MIP，用于基于集群代理和实例代理的对比学习。
+与集群单代理基线相比，我们的方法在 Market-1501 上将 mAP/top-1 提高了
+5.7%/1.9%，在 MSMT17 上将 mAP/top-1 提高了 5.7%/3.2%。 我们相信，DCMIP
+可以通过差异集群代理的协作来减少类内差异，并通过基于多实例代理的全局硬负挖掘来增加类间差异。
+<img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/222711818408800.png"></p>
+<p><strong>聚类质量。</strong>
+为了直观地展示我们的方法在减少类内差异和类间相似性方面的能力，我们通过
+t-SNE [33]对随机选取的 20 个类的样本进行了可视化处理。 如图 4
+所示，与基线相比，DCMIP
+显著改善了所有类别的紧凑性。对于基线方法中无法区分的几个类，我们的方法增加了它们的类间距离。
+此外，对于具有混合特征的两个类别，DCMIP 成功地将它们分开。 我们还在附录
+A.2 中报告了在 Market-1501 和 MSMT17
+上用四个聚类评价指标衡量聚类质量的结果。 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/222797250721300.png"></p>
+<h3 id="参数分析">参数分析</h3>
+<p>集群代理的不同更新策略。我们在第 3.2
+节中定义了三种更新设计来更新聚类代理："Mean"、"Rand "和
+"Hard"，分别如公式 5、公式 6 和公式 7 所示。
+对同一个初始聚类中心点采用不同的更新设计，可以得到多个聚类代理。
+这三种设计通过组合可以形成七种不同的更新策略：分别为
+"Mean"、"Rand"、"Hard"、"Mean+Hard"、"Mean+Rand"、"Rand+Hard "和
+"Mean+Rand+Hard"。 如表 3
+所示，通过适当的更新策略获得的差异群集代理优于单代理，但群集代理的数量并非越多越好。
+根据结果，Market-1501 和 MSMT17 分别通过 "Mean+Hard "和 "Mean+Rand
+"达到最优。 在没有说明的情况下，我们默认使用这两种策略。 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/223317981642000.png"></p>
+<p><strong>集群代理的差异和稳定性。</strong> 如表 3 所示，Market-1501
+在所有策略中都偏好 "hard "更新设计，而 MSMT17 则相反。
+"Hard"更新的代理与集群实例的相似度较低，会产生较大的梯度。
+然而，由于更新过快，"Hard "设计的稳定性不如图 5 中的 "Mean "和
+"Rand"。考虑到 MSMT17 的聚类质量较低（见附录 A.2），
+与代理最不相似的样本极有可能是噪声，使用它进行更新可能会导致错误的学习方向。
+相反，用 "Hard "更新的 Market-1501 代理由于聚类质量较高而更加可靠。
+此外，MSMT17 对稳定性的要求高于 Market-1501，因为它的每类样本数约为
+Market-1501 的两倍，
+这意味着一个代理必须在更多的样本中保持稳定，而在使用多个代理时，形成稳定协作的难度更大。
+因此，"硬 "设计在两个不同规模的数据集上表现不同。 对于
+Market1501，"Mean+Hard "具有较高的差异，而 "Mean "可以补充 "Hard
+"的稳定性，从而在高差异和高稳定性之间达到最佳平衡。 对于 MSMT17，虽然
+"Mean+Rand "的差异较小，但它避免了 "Hard
+"的问题，形成的差异代理可以稳定协作，达到最佳性能。
+我们推测，由于三个动态变化的代理变量比两个代理变量更难形成稳定的协作，尽管
+"Mean+Rand+Hard
+"具有较高的差异，并且能够代表更多的信息，但它并不是最佳策略。 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/224031315894800.png"></p>
+<p><strong>难分负实例代理的数量。</strong>我们分析了全局硬负面挖掘所选择的硬负面实例代理数
+N。从图 6 中可以看出，随着 N 的增加，Market-1501 和 MSMT17
+的性能先上升后下降。 N = 0 表示仅基于 DCP 的集群级对比学习。 当我们将 N
+设为 256 时，两个数据集都达到了最佳 mAP。我们推测，当 N &gt; 0
+时，我们可以利用宝贵的全局最难区分的负样本有效地增加难以区分的类别之间的距离。
+但是，随着 N
+的增加，无意义的简单样本可能会被选中，反而会降低有意义样本的匹配概率，影响梯度，从而导致性能下降。因此，我们设置
+N = 256 <img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/223772992945000.png"></p>
+<h3 id="与最新方法的比较">与最新方法的比较</h3>
+<p>在表 4 中，我们将 DCMIP 与 Market-1501 和 MSMT17 上最先进的 Re-ID
+方法进行了比较。 在无人监督的环境中，我们的 DCMIP
+显着优于以前的方法。我们在 Market-1501 和 MSMT17 上分别实现了
+86.7%/94.7% 和 40.9%/69.3% 的 mAP/top-1。
+与没有任何标签的无监督方法相比，我们的差异集群代理和多实例代理在
+Market-1501 和 MSMT17 上比单代理方法 Cluster-Contrast [9] 显着提高了 mAP
+3.7% 和 7.9%。 此外，我们的 DCMIP 在 mAP 上超过了 Market-1501 和 MSMT17
+上第二好的方法 ISE [46] 1.4% 和 3.9%，并以显着的优势超过了 MSMT17 上的
+ICE [2] 和 PPLR [7]。
+与带有相机标签的无监督方法相比，我们的没有任何相机知识的 DCMIP 优于
+Market-1501 上的四种方法（即 IICS [41]、CAP [36]、ICE [2]、PPLR
+[7]）和三种方法（即 IICS） [41]、CAP [36]、ICE [2]）在 mAP 中的 MSMT17
+上。 此外，在监督设置下，我们的 DCMIP 实现了与著名的监督方法 DG-Net [51]
+和 ADBNet [4] 竞争的性能。
+值得注意的是，在MSMT17上，具有groundtruth的DCMIP在mAP和top-1上的得分比ISE[46]高11.8％和7.1％，这证明了我们的方法在大型数据集上的优越性和潜力。
+## 讨论 我们的 DCMIP
+通过所有集群的两个不同的集群代理来减少类内变异，但这可能不是最佳解决方案。
+对于类内紧凑性较高的簇，没有必要进一步减少类内变异，因为这可能会损害泛化性。
+对于类内紧凑性较低的簇，需要更多的簇代理来表示不同的子集和较低的类内方差。
+在未来的研究中，我们将探索其他策略来获取不同的代理以及不同集群的动态集群代理数。
+## 结果
+在本文中，我们提出了一种基于差异集群代理和多实例代理的对比学习框架，用于无监督人员重新识别。
+我们通过不同的更新设计维护两个不同的聚类代理，以互补地表示一个聚类，并充当聚类对比损失中的难分正样本，以协作减少类内方差。
+我们还为集群维护多实例代理，以准确表示细粒度的实例信息。
+然后在实例代理之间进行全局难分负样本挖掘，通过实例对比损失来增加不可区分类的类间方差。
+综合实验表明，我们的框架在两个流行的数据集上优于先前最先进的方法。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Mona</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/">http://example.com/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unsupervised/">Unsupervised</a><a class="post-meta__tags" href="/tags/Re-ID/">Re-ID</a></div><div class="post_share"><div class="social-share" data-image="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"><img class="cover" src="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/240239585599100.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning</div></div></a></div><div class="next-post pull-right"><a href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"><img class="cover" src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/09/13/re-id/VI-ReID/MMM/" title="MMM"><img class="cover" src="/2024/09/13/re-id/VI-ReID/MMM/img_3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">MMM</div></div></a></div><div><a href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"><img class="cover" src="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/240239585599100.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-28</div><div class="title">Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning</div></div></a></div><div><a href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"><img class="cover" src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="title">Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification</div></div></a></div><div><a href="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/" title="Robust Object Re-identification with Coupled Noisy Labels"><img class="cover" src="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/435246623967300.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="title">Robust Object Re-identification with Coupled Noisy Labels</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/nav.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mona</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mona12138"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E8%A1%8C%E4%BA%BA%E9%87%8D%E8%AF%86%E5%88%AB"><span class="toc-number">3.1.</span> <span class="toc-text">无监督行人重识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%BE%E6%A0%B7%E6%9C%AC%E6%8C%96%E6%8E%98"><span class="toc-number">3.2.</span> <span class="toc-text">难样本挖掘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.3.</span> <span class="toc-text">对比学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%86%B5-overview"><span class="toc-number">4.1.</span> <span class="toc-text">概况-overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E9%9B%86%E7%BE%A4%E4%BB%A3%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">不一致的集群代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text">多实例代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E6%8D%9F%E5%A4%B1"><span class="toc-number">4.4.</span> <span class="toc-text">总损失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-number">5.1.</span> <span class="toc-text">数据集和评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%BB%86%E8%8A%82"><span class="toc-number">5.2.</span> <span class="toc-text">补充细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.3.</span> <span class="toc-text">消融实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%88%86%E6%9E%90"><span class="toc-number">5.4.</span> <span class="toc-text">参数分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E6%9C%80%E6%96%B0%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">5.5.</span> <span class="toc-text">与最新方法的比较</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/" title="Robust Object Re-identification with Coupled Noisy Labels"><img src="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/435246623967300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Robust Object Re-identification with Coupled Noisy Labels"/></a><div class="content"><a class="title" href="/2024/11/30/re-id/Robust-Object-Re-identification-with-Coupled-Noisy-Labels/" title="Robust Object Re-identification with Coupled Noisy Labels">Robust Object Re-identification with Coupled Noisy Labels</a><time datetime="2024-11-30T11:33:48.000Z" title="Created 2024-11-30 19:33:48">2024-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"><img src="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/240239585599100.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning"/></a><div class="content"><a class="title" href="/2024/11/28/re-id/VI-ReID/Unsupervised-Visible-Infrared-Person-Re-Identification-via-Progressive-Graph-Matching-and-Alternate-Learning/" title="Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning">Unsupervised Visible-Infrared Person Re-Identification via Progressive Graph Matching and Alternate Learning</a><time datetime="2024-11-28T02:59:27.000Z" title="Created 2024-11-28 10:59:27">2024-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"><img src="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/135053669412700.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification"/></a><div class="content"><a class="title" href="/2024/11/26/re-id/Discrepant-and-Multi-instance-Proxies-for-Unsupervised-Person-Re-identification/" title="Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification">Discrepant and Multi-instance Proxies for Unsupervised Person Re-identification</a><time datetime="2024-11-26T08:59:00.000Z" title="Created 2024-11-26 16:59:00">2024-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"><img src="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/24219671085900.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/11/24/re-id/VI-ReID/Robust-Pseudo-label-Learning-with-Neighbor-Relation-for-Unsupervised-Visible-Infrared-Person-Re-Identification/" title="Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification">Robust Pseudo-label Learning with Neighbor Relation for Unsupervised Visible-Infrared Person Re-Identification</a><time datetime="2024-11-24T11:52:51.000Z" title="Created 2024-11-24 19:52:51">2024-11-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"><img src="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/1919591092208600.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/11/21/re-id/VI-ReID/Dynamic-Dual-Attentive-Aggregation-Learning-for-Visible-Infrared-Person-Re-Identification/" title="Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification">Dynamic Dual-Attentive Aggregation Learning for Visible-Infrared Person Re-Identification</a><time datetime="2024-11-21T02:47:17.000Z" title="Created 2024-11-21 10:47:17">2024-11-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Mona</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
