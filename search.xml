@@ -592,9 +592,9 @@
             
             <tag> re-id </tag>
             
-            <tag> Uncertainty </tag>
-            
             <tag> Probabilistic </tag>
+            
+            <tag> Uncertainty </tag>
             
         </tags>
       
@@ -793,9 +793,9 @@
       
         <tags>
             
-            <tag> tool </tag>
-            
             <tag> practice </tag>
+            
+            <tag> tool </tag>
             
         </tags>
       
