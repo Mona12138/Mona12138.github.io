@@ -32,7 +32,7 @@ const config = {//配置
     sparkConfig: { // 讯飞星火配置
         /*官方地址 https://spark-api-open.xf-yun.com/v1/chat/completions
         * Worker地址 https://spark-api.xxx.xxx /*/
-        apiUrl: 'https://spark.manyuwei46.workers.dev',
+        apiUrl: 'https://spark-api.manyuwei46.workers.dev',
         apiPassword: 'vlFrdVPKjLKratQnZdCK:GnBsozZUTSANSlUjwPei',//API密钥
         model: 'lite',//模型
         stream: true,//是否流式传输SSS
