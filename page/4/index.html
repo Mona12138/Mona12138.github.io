@@ -6,11 +6,11 @@
 <meta property="og:image" content="http://example.com/img/nav.png">
 <meta property="article:author" content="Mona">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/nav.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="http://example.com/img/nav.png"><link rel="shortcut icon" href="/img/nav.png"><link rel="canonical" href="http://example.com/page/4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
-  translate: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   noticeOutdate: undefined,
   highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
@@ -22,7 +22,7 @@
     homepage: false,
     post: false
   },
-  runtime: '',
+  runtime: 'days',
   dateSuffix: {
     just: 'Just now',
     min: 'minutes ago',
@@ -32,7 +32,7 @@
   },
   copyright: undefined,
   lightbox: 'fancybox',
-  Snackbar: undefined,
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
   infinitegrid: {
     js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
     buttonText: 'Load More'
@@ -51,7 +51,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-01-03 10:21:20'
+  postUpdate: '2025-01-08 16:59:58'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -152,7 +152,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/nav.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/nav.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Mona"><img class="site-icon" src="/nav.png"/><span class="site-name">Mona</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Mona</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/15/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/MODELING%20UNCERTAINTY%20WITH%20HEDGED%20INSTANCE%20EMBEDDING/HIB/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-15T13:31:08.222Z" title="Created 2024-07-15 21:31:08">2024-07-15</time></span></div><div class="content">MODELING
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/nav.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/nav.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Mona"><img class="site-icon" src="/nav.png"/><span class="site-name">Mona</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Mona</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/15/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/MODELING%20UNCERTAINTY%20WITH%20HEDGED%20INSTANCE%20EMBEDDING/HIB/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-15T13:31:08.222Z" title="Created 2024-07-15 21:31:08">2024-07-15</time></span></div><div class="content">MODELING
 UNCERTAINTY WITH HEDGED INSTANCE EMBEDDING
 ICLR2019 ## 总结
 写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段
@@ -172,7 +193,177 @@ img_2.png
 
 表示点匹配概率。本质为两个点的欧氏距离+fc+sigmoid。 标量参数 a &gt; 0
 且 b ∈ R，以及 sigmoid 函数 σ(t) = 1 /1+e^−t
-。该公式将欧几里得距离校准为相似性的概率表达式。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/12/tools/zotero%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/zotero/" title="zotero的小技巧">zotero的小技巧</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-12T08:04:46.222Z" title="Created 2024-07-12 16:04:46">2024-07-12</time></span></div><div class="content">批量下载引用与被引用文献
+。该公式将欧几里得距离校准为相似性的概率表达式。 a 和 b 不是设置像 M
+这样的硬阈值，而是一起构成欧几里得距离的软阈值。
+
+
+img_1.png
+
+其中 m 是指示函数，对于真实匹配，值为 1，否则为 0。 ### 随机嵌入 等式
+2 中给出的两个输入匹配的概率可以轻松扩展到随机嵌入，如下所示：
+
+
+img_3.png
+
+我们通过 z(k1) 1 ∼ p(z1|x1) 和 z(k2) 2∼ p(z2|x2)
+的蒙特卡罗采样来近似这个积分：
+
+
+img_4.png
+
+我们使用分层采样，即我们从每个高斯分量中采样相同数量的样本。
+在实践中，我们使用每个输入图像 K = 5
+个样本获得了良好的结果。现在我们讨论 p(z|x) 的计算
+
+
+img_6.png
+
+最简单的设置是让 p(z|x) 为 D 维高斯分布，其均值为 μ(x) 和对角协方差
+Σ(x)，其中 μ 和 Σ 通过具有共享“主体”的深度神经网络计算，并且2D
+总输出。
+
+
+img_5.png
+
+混合高斯 (MoG) 嵌入 我们可以通过使用 C
+个高斯混合来表示我们的嵌入，从而获得更灵活的不确定性表示，
+
+
+img_7.png
+
+μ 和 Σ共享一个CNN网络，每个分支有一个线性层。 ### VIB 训练目标 ####
+Variational Information Bottleneck (VIB) 通过最小化I(z, y) − βI(z,
+x)，训练判别模型 p(y|x)
+I 是互信息，当 β 较大时，模型更倾向于简化 z 的表示，减少 z中与 x
+的相关性，从而强迫模型仅保留 x 中最重要的特征。 β
+较小时，模型会保留更多的 x 的信息，但仍需确保 z 对 y 具有预测能力。
+计算互信息通常在计算上很困难，但可以使用易于处理的变分近似。特别是，根据马尔可夫假设
+p(z|x, y) = p(z|x)，我们针对每个训练数据点 (x, y) 得出公式 6
+的下界，如下所示：
+
+
+img_8.png
+
+其中 p(z|x) 是x的潜在分布，q(y|z) 是解码器（分类器），r(z)
+是近似边际项， 通常设置为单位高斯 N~(0,I)。
+用于学习随机嵌入的 VIB
+特别是，我们通过最小化以下损失来训练基于匹配或不匹配输入对（x1，x2）的判别模型：
+
+
+img_9.png
+
+其中第一项由相对于真实匹配的负对数似然损失给出（这与等式
+3，软对比损失相同）， 第二项是 KL 正则化项，r(z) = N(z；0，I)。
+我们根据嵌入函数 (μ(x), Σ(x)) 以及公式 2 中匹配概率中的 a 和 b
+项来优化该损失。
+请注意，大多数对不匹配，因此 m = 1 类很少见。
+为了解决这个问题，我们鼓励通过使用两个输入样本图像流来平衡每个 SGD
+小批量中的 m = 0 和 m = 1 对样本。
+一个从训练集中随机采样图像，另一个从特定类标签中选择图像，然后将这些图像随机打乱以生成最终批次
+因此，即使有大量类别，每个小批量也有大量正对。 ### 不确定测量
+我们方法的一个有用属性是嵌入是一种分布，并对给定输入的不确定性水平进行编码。
+作为标量不确定性度量，我们提出自失配概率如下：
+
+
+img_10.png
+
+直观上，模糊输入的嵌入将跨越不同的语义类别。 η(x) 通过测量嵌入 z1, z2
+∼ p(z|x) 不同类别的两个样本的机会来量化这一点。
+我们使用中的上述蒙特卡罗估计来计算 η(x)。 ## 评估 
+
+
+img_12.png
+
+
+
+img_13.png
+
+
+
+img_14.png
+
+结论
+对冲实例嵌入是一种随机嵌入，通过将密度分布在合理的位置来捕获图像到潜在嵌入空间的映射的不确定性。这可以提高各种任务的性能，例如验证和识别，特别是对于模糊的损坏输入。它还提供了一种简单的方法来估计与下游任务性能相关的嵌入的不确定性。未来的工作有很多可能的方向，包括尝试更高维的嵌入和更难的数据集。考虑“开放世界”（或“未知的未知”）场景也很有趣，其中测试集可能包含新类别的示例，例如训练集中不存在的数字组合（例如，参见
+Lakkaraju 等）等（2017）；G ̈ unther
+等（2017）。这可能会导致输入嵌入位置的不确定性，这与遮挡引起的不确定性不同，因为开放世界引起的不确定性是认知性的（由于缺乏类的知识），而遮挡引起的不确定性是任意的（内在的，由于输入中缺乏信息），如
+Kendall &amp; Gal (2017) 中所解释的。初步实验表明 η(x)
+与检测遮挡输入相关性很好，但对于新类则效果不佳。我们将更详细的认知不确定性建模作为未来的工作。
+## 笔记 回归技术：它研究的是因变量（目标）和自变量（预测器）之间的关系。
+直接回归，举个例子：10个点，设其函数为y=kx+b ，求k和b的值 y'=kx+b
+那么，误差z=y-y',本质为解一元二次方程，使得
+损失y-y'也就是目标与实际差最小 变分自编码器VAE是什么？
+变分自编码器（VAE，Variational
+Autoencoder）是一种生成模型，它将概率理论引入自编码器结构，能够学习复杂的分布并生成逼真的新样本。VAE
+属于深度生成模型的一种，常用于图像生成、数据压缩和隐变量表示学习等任务。
+1. VAE 的基本原理
+VAE 的结构类似于传统的自编码器，它由两个主要部分组成： -
+编码器（Encoder）：将输入数据映射到一个低维的潜在空间中。
+-
+解码器（Decoder）：将低维的潜在空间中的点映射回原始数据空间，重构原始数据。
+与传统的自编码器不同，VAE
+中的编码器不会直接输出一个固定的潜在表示（latent
+representation），而是输出一个概率分布。因此，VAE
+可以在潜在空间中进行采样，并通过解码器生成新数据。
+2. VAE 的关键步骤
+VAE 的核心思想是通过概率建模实现生成。主要过程包括以下几个步骤：
+
+输入数据到潜在空间的映射：
+
+编码器将输入数据 (x) 映射到一个潜在变量 (z)
+的概率分布（通常假设是高斯分布）。编码器输出潜在变量的均值 () 和标准差
+()，用来定义潜在空间中每个样本的分布。
+编码器实际上在学习数据 (x) 的潜在分布 (q(z|x))。
+
+采样潜在变量 (z)：
+
+从编码器输出的概率分布中进行采样，得到一个潜在变量
+(z)，这个潜在变量表示输入数据在潜在空间中的“压缩版本”。
+采样使用了重参数化技巧（reparameterization
+trick），即通过将随机性外包给标准正态分布，从而使得整个模型可以通过梯度下降进行优化。
+
+从潜在变量生成数据：
+
+解码器从潜在变量 (z) 中采样，然后生成与原始数据 (x)
+具有相同分布的重构数据 (x')。
+解码器学习 (p(x|z))，即给定潜在变量 (z) 的情况下生成数据 (x)
+的概率分布。
+
+损失函数：
+
+VAE 的损失函数由两部分组成：
+
+重构误差（Reconstruction Loss）：衡量解码器生成的
+(x') 和原始输入 (x) 之间的差异，通常采用均方误差或二元交叉熵。
+KL 散度（KL Divergence）：衡量编码器输出的 (q(z|x))
+和先验分布 (p(z)) 之间的差异。通常，(p(z)) 被假设为标准正态分布。
+
+
+
+VAE 的总损失函数可以表示为： [ _{VAE} = + ]
+3. VAE 的优点
+
+生成能力：VAE
+能够生成新样本，因为它学到了数据的潜在分布。通过在潜在空间中采样
+(z)，可以生成新的与训练数据相似的样本。
+隐变量表示：VAE
+学到的数据表示是连续且概率性的，这使得它在潜在空间中的采样非常平滑，适用于生成任务。
+概率模型：VAE
+利用概率建模来描述输入数据，可以较好地处理数据中的不确定性。
+
+4. VAE 的应用
+
+图像生成：VAE
+可以用于生成与训练数据类似的新图像，如手写数字生成、人物面部生成等。
+数据压缩：VAE
+通过将高维数据映射到低维潜在空间，能够实现数据压缩。
+异常检测：VAE
+学习数据的分布，对于偏离该分布的数据点（如异常数据），其重构误差会更高，因此可以用于检测异常。
+
+5. 与 GAN 的比较
+
+VAE 是概率生成模型，其目标是最大化数据的似然，而
+GAN（生成对抗网络） 是通过对抗训练生成数据。
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/12/tools/zotero%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/zotero/" title="zotero的小技巧">zotero的小技巧</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-12T08:04:46.222Z" title="Created 2024-07-12 16:04:46">2024-07-12</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/tool/">tool</a></span></div><div class="content">批量下载引用与被引用文献
 下载引用文献
 1、 查找对应文献收录的数据库，检索到该文献即可 。数据库例如：web of
 science、IEEE等（找文章对应数据库）
@@ -186,7 +377,8 @@ Uncertainty-Aware Regression》为例
 下载被引用文献 本质与上述无不同，
 获取引用的bib文件-&gt;导入到zotero-&gt;利用zotero批量下载，
 只不过这个获取的更为方便， - google scholar检索到这篇文献直接查看cite by
-- 利 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/11/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/Learning%20Probabilistic%20Ordinal%20Embeddings%20for%20Uncertainty-Aware%20Regression/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-11T06:36:58.314Z" title="Created 2024-07-11 14:36:58">2024-07-11</time></span></div><div class="content">Learning
+- 利用zotero的抓取插件，保存到对应位置即可
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/11/%E6%A6%82%E7%8E%87%E5%B5%8C%E5%85%A5/Learning%20Probabilistic%20Ordinal%20Embeddings%20for%20Uncertainty-Aware%20Regression/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-11T06:36:58.314Z" title="Created 2024-07-11 14:36:58">2024-07-11</time></span></div><div class="content">Learning
 Probabilistic Ordinal Embeddings for Uncertainty-Aware Regression
 CVPR 2021 ## Summery
 写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段 ##
@@ -201,8 +393,8 @@ Notes
 直接回归，举个例子：10个点，设其函数为y=kx+b ，求k和b的值 y'=kx+b
 那么，误差z=y-y',本质为解一元二次方程，使得
 损失y-y'也就是目标与实际差最小 x
-</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/list/" title="任务列表">任务列表</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T13:06:04.959Z" title="Created 2024-07-04 21:06:04">2024-07-04</time></span></div><div class="content">英文 看作文一篇 单词20个 周六做阅读 上午、下午科研 晚上学英语
-</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/%E5%8D%95%E8%AF%8D/" title="单词">单词</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T13:03:46.711Z" title="Created 2024-07-04 21:03:46">2024-07-04</time></span></div><div class="content">7.4
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/list/" title="任务列表">任务列表</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T13:06:04.959Z" title="Created 2024-07-04 21:06:04">2024-07-04</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/English/">English</a></span></div><div class="content">英文 看作文一篇 单词20个 周六做阅读 上午、下午科研 晚上学英语
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/%E5%8D%95%E8%AF%8D/" title="单词">单词</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T13:03:46.711Z" title="Created 2024-07-04 21:03:46">2024-07-04</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/English/">English</a></span></div><div class="content">7.4
 
 be absent from…. 缺席，不在
 absence of mind being absent-minded 心不在焉
@@ -216,7 +408,7 @@ about 指控控告
 be accustomed to / be used to 习惯于
 in accord with 与…一致
 
-</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/%E4%BD%9C%E6%96%87%E6%A8%A1%E6%9D%BF/" title="作文模板">作文模板</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T12:33:30.601Z" title="Created 2024-07-04 20:33:30">2024-07-04</time></span></div><div class="content">话题作文之原因说明
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/%E8%8B%B1%E8%AF%AD/%E4%BD%9C%E6%96%87%E6%A8%A1%E6%9D%BF/" title="作文模板">作文模板</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T12:33:30.601Z" title="Created 2024-07-04 20:33:30">2024-07-04</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/English/">English</a></span></div><div class="content">话题作文之原因说明
 模板1
 Nowadays, there are more and more [某种现象] in [某种场合]. It is
 estimated that [相关数据]. Why have there been so many [某种现象]? Maybe
@@ -225,7 +417,62 @@ Besides,[原因二]. The third one is [原因三]. To sum up, the main cause
 of [某种现象] is due to [最主要原因]. It is high time that something
 were done upon it. For one thing, [解决办法一]. On the other hand,
 [解决办法二]. All these measures will certainly reduce the number of
-[某种现象]. ### 对应作文 Generation gap between p ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/" title="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification"><img class="post-bg" src="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/img_2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/" title="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification">Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-02T09:04:45.266Z" title="Created 2024-07-02 17:04:45">2024-07-02</time></span></div><div class="content">出处：arxiv_2024
+[某种现象]. ### 对应作文 Generation gap between parents and
+children
+Nowadays, there are more and more misunderstanding
+between parents and children which is so-called generation gap.
+It is estimated that ( 75 percentages of parents often
+complain their children’s unreasonable behavior while children usually
+think their parents too old fashioned ).
+Why have there been so much misunderstanding between
+parents and children? Maybe the reasons can be listed as
+follows. The first one is that ( the two
+generations, having grown up at different times, have different likes
+and dislikes , thus the disagreement often rises between them ).
+Besides ( due to having little in common to talk about,
+they are not willing to sit face to face ). The third reason
+is ( with the pace of modern life becoming faster and faster,
+both of them are so busy with their work or study that they don’t spare
+enough time to exchange ideas ). To sum up , the main cause of
+XX is due to ( lake of communication and understanding each
+other ).
+It is high time that something was done upon it.
+For one thing ( children should respect their parents
+). On the other hand , ( parents also should show
+solicitue for their children ). All these measures will
+certainly bridge the generation gap.
+范文
+网络安全问题
+作文题目：
+1.随着社会和经济发展，网络成为了每个人必不可少的获取信息的工具
+2.但是，在网络上也出现了一些不和谐的因素，如垃圾信息，黄色网站，虚假新闻，网络炒作等。
+3.如何采取措施制止和消除这些现象。
+题材连接：在当今的社会中，“和谐”这个词汇出现的频率可以说是非常高了，对于六级作文的话题选择基本上是社会次热点话题以及部分校园话题，除了注意网络和谐这个话题外，还有特别注意邻里之间和谐相处，社会的和谐，人与环境的和谐(制止污染问题)，校园寝室中与室友的和谐相处等等热点话题，都有可能进入命题老师的视线..
+The advent of the Internet ushered in a new era of
+interpersonal communications and business operations. Undoubtedly, the
+Net are revolutionizing the daily lives of the people who have an access
+to it. The primary reason behind the Internet boom roots in its
+multifunction. It provides a vehicle for netizens to shop, search,
+publish blogs and browse Webpages.
+A range of problems lurking behind the
+frenzy of Internet impressively stand out. A vast
+majority of Internet users’ mail boxes are saturated with junk mails, an
+issue which sparks strong criticism and generates the loss of corporate
+productivity. It’s not alone. Porn websites lure a
+growing number of young people’s visits. False news via the e-mail, BBS
+and chat room increasingly poses a threat to the social prosperity and
+stability.
+To crack down them, we should push for a more effectively tough law.
+We should join our forces to launch a nation-wide campaign, including
+imposing stiff penalties on spammers, shutting down or blocking the lewd
+sites and introducing a real-name registration system to curb fraudulent
+messages. We can fully believe that our combined efforts will
+reap rewards. A clean cyberspace will paint our lives
+more colorfully. An economically booming and technologically advanced
+global web will play a vital role in the national economic and cultural
+advancement.
+ushered 迎来了 lurking 潜伏 frenzy 疯狂 lure 饵 reap 收获
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/" title="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification"><img class="post-bg" src="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/img_2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/02/re-id/VI-ReID/Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification%20/" title="Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification">Multi-scale_Semantic_Correlation_Mining_for_Visible-Infrared_Person_Re-Identification</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-02T09:04:45.266Z" title="Created 2024-07-02 17:04:45">2024-07-02</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/open-sourse/">open-sourse</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/re-id/">re-id</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/VI-ReID/">VI-ReID</a></span></div><div class="content">出处：arxiv_2024
 开源链接:https://github.com/Hua-XC/MSCMNet
 ## Summery
 写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段 ##
@@ -244,7 +491,53 @@ Q:
 A:
 这种语义信息之间的相关性可以在多个尺度上进行探索，从而能够提取出更全面的个人特征。
 Q:
-深层，浅层、深层信息表示语义不同，只 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/13/tools/webstorm%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/hexo%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" title="hexo使用手册">hexo使用手册</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-13T07:12:53.813Z" title="Created 2024-06-13 15:12:53">2024-06-13</time></span></div><div class="content">从0开始玩网站（补充中）
+深层，浅层、深层信息表示语义不同，只取深度信息会丢失浅层信息
+A: 开发一个新特征的特征网络，提取更全年面的网络
+Method
+解决问题的方法/算法是什么？
+
+
+img_2.png
+
+多尺度语义相关挖掘网络（MSCMNet)，在多尺度上综合利用语义特征，同时减少特征提取中尽可能小的模态信息损失。
+
+首先，在考虑了模态信息的有效利用后，设计了多尺度信息相关挖掘块（MIMB）来探索多个尺度上的语义相关性。
+其次，为了丰富MIMB可以利用的语义信息，专门设计了一个具有非共享参数的四流特征提取器（QFE），从数据集的不同维度中提取信息。
+最后，进一步提出了四重中心三重态损失（QCT）来解决综合特征中的信息差异。
+此外，它还在测试过程中进行特征融合。且应用通道增强技术来扩展RGB和IR图像的尺寸
+### 数据增强  原图：(R,G,B)
+增强:(R,R,R)、(G,G,G)、(B,B,B)
+红外光通过随机调整通道的颜色信息实现图像增强2 * random * img ###
+四元特征提取与融合 
+四元特征提取器E(.)将增强红外、增强可见、可见、红外的特征都提取出来
+融合： 
+g、c为全局级图像和通道增强的图像 V和T分别代表可见光形态和红外形态 ###
+多尺度信息关联挖掘块 （重点） 
+
+通过设计一种新的多尺度结构，我们将四个ALB层结合起来，形成了MIMB模块,我们将从主干的每一层中提取的特征设置为Gi，i表示第i层的特征输出
+从第3层获得的特征输出作为我们对MIMB模块的输入，记为\(\epsilon_0\) 
+F是主干中ALB的输入，代表深层特征。而G是浅层网络中保留的输出，Q,K,V注意力机制的查询
+我们应用一个卷积层，表示为Fconv 
+整体损失函数
+总而言之，计算模态特定中心，将进行类间之间的惩罚
+我们将这些特征划分为四个独立的集合，每个集合代表一个不同的维度特征。
+
+计算特征中心：   模态信息增强损失：
+将两个模态特征
+ 
+事实上，我们对每个标识（ID）内的每个特征f_i施加约束，以确保其与其他标识的特征中心c_yi的距离保持在ρ的阈值以上。
+
+  ## Evaluation
+作者如何评估自己的方法，有没有问题或者可以借鉴的地方。
+在RegBD、SYSU、LLCM上进行测试 
+  消融实验 
+QFE：四元提取器
+Concusion
+作者给了哪些strong conclusion, 又给了哪些weak conclusion?
+损失也是比较简单的，有用的地方在于ALB以及额外的特征提取
+Notes
+在这些框架外额外需要记录的笔记。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/13/tools/webstorm%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/hexo%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" title="hexo使用手册">hexo使用手册</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-13T07:12:53.813Z" title="Created 2024-06-13 15:12:53">2024-06-13</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/tool/">tool</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/practice/">practice</a></span></div><div class="content">从0开始玩网站（补充中）
 部署一个属于自己的网页
 参考一下新手小白搭建博客链接
 一步一步跟教程走就行 ### 补充 &gt;
@@ -258,29 +551,263 @@ hexo 使用手册
 插入图片
 当Hexo项目中只用到少量图片时，可以将图片统一放在source/images文件夹中，通过markdown语法访问它们。
 1![](/images/image.jpg)#绝对路径引用
-文章的目录可以通过站点配置文件_config.yml来生成。post_asset_ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/06/13/re-ranking_reid/" title="re-ranking_reid"><img class="post-bg" src="/2024/06/13/re-ranking_reid/img.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="re-ranking_reid"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/06/13/re-ranking_reid/" title="re-ranking_reid">re-ranking_reid</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-13T06:44:29.274Z" title="Created 2024-06-13 14:44:29">2024-06-13</time></span></div><div class="content">1、Re-ranking
-Person Re-identification with k-reciprocal Encoding
-开源链接
-摘要：
-本文提出了一种用于重新排序re-ID结果的k-互惠编码方法。其核心思想是，如果一个图库图像（数据库中的图像）在其k-互惠最近邻中与探测图像（要匹配的图像）相似，那么它更有可能是一个真实匹配。具体操作如下：
+文章的目录可以通过站点配置文件_config.yml来生成。post_asset_folder: true
+执行命令
+hexo new post_name在source/_posts中会生成文章post_name.md和同名文件夹post_name。将图片资源放在post_name中，文章就可以使用相对路径引用图片资源了。
+1![](image.jpg) #相对路径引用
+这种相对路径的图片显示方法在博文详情页面显示没有问题，但是在首页预览页面图片将显示不出来。如果希望图片在文章和首页中同时显示，可以使用标签插件语法。
+1234# 本地图片资源，不限制图片尺寸&#123;% asset_img image.jpg This is an image %&#125;# 网络图片资源，限制图片显示尺寸&#123;% img http://www.viemu.com/vi-vim-cheat-sheet.gif 200 400 vi-vim-cheat-sheet %&#125;
+Markdown 语法
+ 高亮 1&lt;mark&gt;高亮&lt;/mark&gt;
+==高亮==(不支持)
+高亮 1`高亮`
+这是一段高亮文字
+高亮 
+1&#123;% label 高亮%&#125;
+时间线
+2022
+01-02
+這是測試頁面
 
-k-互惠特征计算：
-对于给定的图像，识别并将其k-互惠最近邻编码成一个向量。
-杰卡德距离：然后使用这个k-互惠特征向量计算杰卡德距离，衡量探测图像和图库图像之间的相似度。
-组合距离：最终的重新排序基于原始距离（来自初始re-ID过程）和杰卡德距离的组合。
+12345678910&#123;% timeline 2022,pink %&#125;&lt;!-- timeline 01-02 --&gt;這是測試頁面&lt;!-- endtimeline --&gt;&#123;% endtimeline %&#125;
+友情链接 友情鏈接那些人，那些事 
+          
+            
+              
+                
+              
+              JerryC 
+              今日事,今日畢
+            
+          
+          
+            
+              
+                
+              
+              Hexo 
+              快速、簡單且強大的網誌框架
+            
+          網站值得推薦的網站 
+          
+            
+              
+                
+              
+              Youtube 
+              視頻網站
+            
+          
+          
+            
+              
+                
+              
+              Weibo 
+              中國最大社交分享平台
+            
+          
+          
+            
+              
+                
+              
+              Twitter 
+              社交分享平台
+            
+          
+123456789101112131415161718192021222324252627282930&#123;% flink %&#125;- class_name: 友情鏈接  class_desc: 那些人，那些事  link_list:    - name: JerryC      link: https://jerryc.me/      avatar: https://jerryc.me/img/avatar.png      descr: 今日事,今日畢    - name: Hexo      link: https://hexo.io/zh-tw/      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg      descr: 快速、簡單且強大的網誌框架- class_name: 網站  class_desc: 值得推薦的網站  link_list:     - name: Youtube      link: https://www.youtube.com/      avatar: https://i.loli.net/2020/05/14/9ZkGg8v3azHJfM1.png      descr: 視頻網站     - name: Weibo      link: https://www.weibo.com/      avatar: https://i.loli.net/2020/05/14/TLJBum386vcnI1P.png      descr: 中國最大社交分享平台     - name: Twitter      link: https://twitter.com/      avatar: https://i.loli.net/2020/05/14/5VyHPQqR6LWF39a.png      descr: 社交分享平台&#123;% endflink %&#125;
+de 
+    
 
-这种方法不需要任何人为干预或标注数据，因此适用于大规模数据集。该方法在多个大型re-ID数据集上验证了其有效性，包括Market-1501、CUHK03、MARS和PRW。
 
 
-img.png
+    var ctx = document.getElementById('chart6634').getContext('2d');
+    var options = {
+type: 'bar',
+data: {
+labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+datasets: [{
+label: 'First Dataset',
+data: [65, 59, 80, 81, 56, 55, 40],
+fill: false,
+backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(255, 159, 64, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(201, 203, 207, 0.5)'],
+borderColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)'],
+borderWidth: 1
+}]
+},
+options: {
+scales: {
+yAxes: [{
+ticks: {
+beginAtZero: true
+}
+}]
+}
+}
+};
+    new Chart(ctx, options);
+ 
+    
 
-1.什么是 re-ranking?
-重新排序（re-ranking）是指在初步排序结果的基础上，进一步调整和优化排序结果的过程，以提高系统的准确性。
-## ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/nav.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mona</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mona12138"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/30/tools/%E5%A4%AE%E8%A7%86%E7%BD%91%E8%A7%86%E9%A2%91%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD/" title="央视网视频批量下载方法">央视网视频批量下载方法</a><time datetime="2024-12-30T07:09:23.386Z" title="Created 2024-12-30 15:09:23">2024-12-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/16/Sigma-Siamese-Mamba-Network-for-Multi-Modal-Semantic-Segmentation/" title="Sigma : Siamese Mamba Network for Multi-Modal Semantic Segmentation">Sigma : Siamese Mamba Network for Multi-Modal Semantic Segmentation</a><time datetime="2024-12-16T02:45:51.000Z" title="Created 2024-12-16 10:45:51">2024-12-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/06/re-id/Semantics-Aligned-Representation-Learning-for-Person-Re-identification/" title="Semantics-Aligned Representation Learning for Person Re-identification">Semantics-Aligned Representation Learning for Person Re-identification</a><time datetime="2024-12-06T02:42:51.000Z" title="Created 2024-12-06 10:42:51">2024-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/" title="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification"><img src="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/1495832804532300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/" title="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification">High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification</a><time datetime="2024-12-06T02:42:33.000Z" title="Created 2024-12-06 10:42:33">2024-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/" title="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification"><img src="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/1388519637610900.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/" title="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification">Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification</a><time datetime="2024-12-06T02:42:07.000Z" title="Created 2024-12-06 10:42:07">2024-12-06</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+
+
+    var ctx = document.getElementById('chart4064').getContext('2d');
+    var options = {
+type: 'line',
+data: {
+labels: ['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05'], // 日期
+datasets: [{
+label: '体重 (kg)', // 数据集标签
+backgroundColor: 'rgba(75, 192, 192, 0.2)', // 填充颜色
+borderColor: 'rgb(75, 192, 192)', // 折线颜色
+data: [70, 70.5, 71, 71.2, 70.8], // 体重数据
+fill: true, // 是否填充折线下方区域
+tension: 0.1 // 曲线的平滑程度
+}]
+},
+options: {
+responsive: true, // 自适应屏幕
+title: {
+display: true, // 显示图表 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/06/13/re-ranking_reid/" title="re-ranking_reid"><img class="post-bg" src="/2024/06/13/re-ranking_reid/img.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="re-ranking_reid"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/06/13/re-ranking_reid/" title="re-ranking_reid">re-ranking_reid</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-13T06:44:29.274Z" title="Created 2024-06-13 14:44:29">2024-06-13</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/re-rank/">re-rank</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/re-id/">re-id</a></span></div><div class="content">本文提出了一种用于重新排序re-ID结果的k-互惠编码方法。其核心思想是，如果一个图库图像（数据库中的图像）在其k-互惠最近邻中与探测图像（要匹配的图像）相似，那么它更有可能是一个真实匹配。具体操作如下：
+1. **k-互惠特征计算**：对于给定的图像，识别并将其k-互惠最近邻编码成一个向量。
+2. **杰卡德距离**：然后使用这个k-互惠特征向量计算杰卡德距离，衡量探测图像和图库图像之间的相似度。
+3. **组合距离**：最终的重新排序基于原始距离（来自初始re-ID过程）和杰卡德距离</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/nav.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mona</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mona12138"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/mona12138" target="_blank" title="Github"><i class="fab fa-gitHub" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/30/tools/%E5%A4%AE%E8%A7%86%E7%BD%91%E8%A7%86%E9%A2%91%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD/" title="央视网视频批量下载方法">央视网视频批量下载方法</a><time datetime="2024-12-30T07:09:23.386Z" title="Created 2024-12-30 15:09:23">2024-12-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/16/Sigma-Siamese-Mamba-Network-for-Multi-Modal-Semantic-Segmentation/" title="Sigma : Siamese Mamba Network for Multi-Modal Semantic Segmentation">Sigma : Siamese Mamba Network for Multi-Modal Semantic Segmentation</a><time datetime="2024-12-16T02:45:51.000Z" title="Created 2024-12-16 10:45:51">2024-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/re-id/Semantics-Aligned-Representation-Learning-for-Person-Re-identification/" title="Semantics-Aligned Representation Learning for Person Re-identification"><img src="/2024/12/06/re-id/Semantics-Aligned-Representation-Learning-for-Person-Re-identification/1852792953413800.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Semantics-Aligned Representation Learning for Person Re-identification"/></a><div class="content"><a class="title" href="/2024/12/06/re-id/Semantics-Aligned-Representation-Learning-for-Person-Re-identification/" title="Semantics-Aligned Representation Learning for Person Re-identification">Semantics-Aligned Representation Learning for Person Re-identification</a><time datetime="2024-12-06T02:42:51.000Z" title="Created 2024-12-06 10:42:51">2024-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/" title="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification"><img src="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/1495832804532300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/12/06/re-id/High-Order-Information-Matters-Learning-Relation-and-Topology-for-Occluded-Person-Re-Identification/" title="High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification">High-Order Information Matters: Learning Relation and Topology  for Occluded Person Re-Identification</a><time datetime="2024-12-06T02:42:33.000Z" title="Created 2024-12-06 10:42:33">2024-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/" title="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification"><img src="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/1388519637610900.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification"/></a><div class="content"><a class="title" href="/2024/12/06/re-id/Beyond-Human-Parts-Dual-Part-Aligned-Representations-for-Person-Re-Identification/" title="Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification">Beyond Human Parts: Dual Part-Aligned Representations  for Person Re-Identification</a><time datetime="2024-12-06T02:42:07.000Z" title="Created 2024-12-06 10:42:07">2024-12-06</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>Categories</span>
             
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Re-ID/"><span class="card-category-list-name">Re-ID</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Re-ID-VI-ReID/"><span class="card-category-list-name">Re-ID - VI-ReID</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Re-ID-Person/"><span class="card-category-list-name">Re-ID -Person</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Re-ID-VI-ReID/"><span class="card-category-list-name">Re-ID -VI-ReID</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Re-id-object-Re-id/"><span class="card-category-list-name">Re-id - object Re-id</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/person-retrieval/"><span class="card-category-list-name">person retrieval</span><span class="card-category-list-count">1</span></a></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Noisy-correspondence/" style="font-size: 1.1em; color: #999">Noisy correspondence</a> <a href="/tags/object/" style="font-size: 1.1em; color: #999">object</a> <a href="/tags/Probabilistic/" style="font-size: 1.17em; color: #999c9f">Probabilistic</a> <a href="/tags/Part/" style="font-size: 1.1em; color: #999">Part</a> <a href="/tags/Optimal-Transport/" style="font-size: 1.1em; color: #999">Optimal Transport</a> <a href="/tags/Noisy-labels/" style="font-size: 1.1em; color: #999">Noisy labels</a> <a href="/tags/re-id/" style="font-size: 1.3em; color: #99a1ac">re-id</a> <a href="/tags/Neighbor-Relation-Learning/" style="font-size: 1.1em; color: #999">Neighbor Relation Learning</a> <a href="/tags/English/" style="font-size: 1.23em; color: #999ea6">English</a> <a href="/tags/re-rank/" style="font-size: 1.1em; color: #999">re-rank</a> <a href="/tags/tool/" style="font-size: 1.17em; color: #999c9f">tool</a> <a href="/tags/open-source/" style="font-size: 1.1em; color: #999">open-source</a> <a href="/tags/Auxiliary-modality/" style="font-size: 1.1em; color: #999">Auxiliary modality</a> <a href="/tags/open-sourse/" style="font-size: 1.37em; color: #99a4b2">open-sourse</a> <a href="/tags/Unsupervised/" style="font-size: 1.3em; color: #99a1ac">Unsupervised</a> <a href="/tags/Graph-Matching/" style="font-size: 1.1em; color: #999">Graph Matching</a> <a href="/tags/Re-ID/" style="font-size: 1.5em; color: #99a9bf">Re-ID</a> <a href="/tags/GPT/" style="font-size: 1.17em; color: #999c9f">GPT</a> <a href="/tags/cross-modality/" style="font-size: 1.1em; color: #999">cross-modality</a> <a href="/tags/tools/" style="font-size: 1.1em; color: #999">tools</a> <a href="/tags/part/" style="font-size: 1.1em; color: #999">part</a> <a href="/tags/Group-re-id/" style="font-size: 1.1em; color: #999">Group re-id</a> <a href="/tags/Uncertainty/" style="font-size: 1.17em; color: #999c9f">Uncertainty</a> <a href="/tags/%E6%9C%89%E8%B6%A3/" style="font-size: 1.17em; color: #999c9f">有趣</a> <a href="/tags/Alter-learning/" style="font-size: 1.1em; color: #999">Alter learning</a> <a href="/tags/VI-re-id/" style="font-size: 1.1em; color: #999">VI re-id</a> <a href="/tags/practice/" style="font-size: 1.1em; color: #999">practice</a> <a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 1.1em; color: #999">分块</a> <a href="/tags/open-sourse/" style="font-size: 1.17em; color: #999c9f">open sourse</a> <a href="/tags/Multi-Modal/" style="font-size: 1.1em; color: #999">Multi-Modal</a> <a href="/tags/VI-ReID/" style="font-size: 1.43em; color: #99a6b9">VI-ReID</a> <a href="/tags/Noisy-Labels/" style="font-size: 1.1em; color: #999">Noisy Labels</a> <a href="/tags/open-source/" style="font-size: 1.1em; color: #999">open source</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">December 2024</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">June 2024</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-03T02:21:12.173Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Mona</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script src="/js/spark_lite_post_ai.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Multi-Modal/" style="font-size: 1.15em; color: rgb(170, 44, 133)">Multi-Modal</a><a href="/tags/open-sourse/" style="font-size: 1.35em; color: rgb(158, 174, 188)">open-sourse</a><a href="/tags/re-rank/" style="font-size: 1.15em; color: rgb(11, 128, 104)">re-rank</a><a href="/tags/re-id/" style="font-size: 1.3em; color: rgb(106, 21, 180)">re-id</a><a href="/tags/tools/" style="font-size: 1.15em; color: rgb(93, 176, 116)">tools</a><a href="/tags/Re-ID/" style="font-size: 1.45em; color: rgb(51, 34, 146)">Re-ID</a><a href="/tags/part/" style="font-size: 1.15em; color: rgb(128, 69, 64)">part</a><a href="/tags/open-sourse/" style="font-size: 1.2em; color: rgb(48, 19, 148)">open sourse</a><a href="/tags/Part/" style="font-size: 1.15em; color: rgb(147, 66, 107)">Part</a><a href="/tags/Unsupervised/" style="font-size: 1.3em; color: rgb(132, 119, 26)">Unsupervised</a><a href="/tags/cross-modality/" style="font-size: 1.15em; color: rgb(125, 102, 71)">cross-modality</a><a href="/tags/object/" style="font-size: 1.15em; color: rgb(143, 144, 99)">object</a><a href="/tags/Noisy-labels/" style="font-size: 1.15em; color: rgb(26, 101, 84)">Noisy labels</a><a href="/tags/Noisy-correspondence/" style="font-size: 1.15em; color: rgb(45, 4, 119)">Noisy correspondence</a><a href="/tags/open-source/" style="font-size: 1.15em; color: rgb(156, 25, 31)">open-source</a><a href="/tags/Uncertainty/" style="font-size: 1.2em; color: rgb(170, 76, 104)">Uncertainty</a><a href="/tags/Probabilistic/" style="font-size: 1.2em; color: rgb(114, 57, 85)">Probabilistic</a><a href="/tags/Group-re-id/" style="font-size: 1.15em; color: rgb(77, 118, 105)">Group re-id</a><a href="/tags/GPT/" style="font-size: 1.2em; color: rgb(41, 200, 106)">GPT</a><a href="/tags/%E6%9C%89%E8%B6%A3/" style="font-size: 1.2em; color: rgb(175, 123, 158)">有趣</a><a href="/tags/English/" style="font-size: 1.25em; color: rgb(186, 175, 95)">English</a><a href="/tags/tool/" style="font-size: 1.2em; color: rgb(136, 21, 194)">tool</a><a href="/tags/practice/" style="font-size: 1.15em; color: rgb(40, 18, 7)">practice</a><a href="/tags/VI-ReID/" style="font-size: 1.4em; color: rgb(12, 3, 128)">VI-ReID</a><a href="/tags/%E5%88%86%E5%9D%97/" style="font-size: 1.15em; color: rgb(121, 110, 45)">分块</a><a href="/tags/Noisy-Labels/" style="font-size: 1.15em; color: rgb(141, 86, 198)">Noisy Labels</a><a href="/tags/Neighbor-Relation-Learning/" style="font-size: 1.15em; color: rgb(149, 193, 89)">Neighbor Relation Learning</a><a href="/tags/Optimal-Transport/" style="font-size: 1.15em; color: rgb(80, 62, 105)">Optimal Transport</a><a href="/tags/Graph-Matching/" style="font-size: 1.15em; color: rgb(125, 38, 81)">Graph Matching</a><a href="/tags/Alter-learning/" style="font-size: 1.15em; color: rgb(84, 50, 170)">Alter learning</a><a href="/tags/open-source/" style="font-size: 1.15em; color: rgb(29, 163, 88)">open source</a><a href="/tags/Auxiliary-modality/" style="font-size: 1.15em; color: rgb(11, 80, 130)">Auxiliary modality</a><a href="/tags/VI-re-id/" style="font-size: 1.15em; color: rgb(100, 151, 33)">VI re-id</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">December 2024</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">November 2024</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">October 2024</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">September 2024</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">August 2024</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">June 2024</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">Runtime :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-01-08T08:59:50.082Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-08T08:59:50.082Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Mona</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="Chat"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: (str) => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: (subtitleType) => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+</script><script>function subtitleType () {
+  if (true) {
+    typedJSFn.init(["靡不有初，鲜克有终","Never put off till tomorrow what you can do today","许多人终其一生都想从别人身上找寻爱，以为爱是自然界的第二个太阳。","却忘了自己才是那道照耀全世界的光。"])
+  } else {
+    document.getElementById("subtitle").textContent = "靡不有初，鲜克有终"
+  }
+}
+typedJSFn.run(subtitleType)</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="/js/spark_lite_post_ai.js"></script><div class="aplayer no-destroy" data-id="12513757136" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
